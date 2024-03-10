@@ -4,7 +4,7 @@ import cors from 'cors'
 import cookieParser from "cookie-parser"
 import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
-import userRouter from './routes/user.js'
+import authRouter from './routes/auth.js'
 
 // init
 dotenv.config()
@@ -21,7 +21,7 @@ app.use(cookieParser())
 
 // routers
 
-app.use('/api/user',userRouter)
+app.use('/api/auth',authRouter)
 
 
 

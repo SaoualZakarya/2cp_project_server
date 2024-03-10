@@ -6,6 +6,6 @@ const errorHandler = (err, req, res, next) => {
       stack: process.env.NODE_ENV === 'development' ? err.stack : null 
     }
     res.json(errorObject)
-  }
+}
   
 export default errorHandler

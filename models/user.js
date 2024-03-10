@@ -17,12 +17,15 @@ var userSchema = new mongoose.Schema({
     },
     mobile:{
         type:String,
-        required:false,
         match:[/^[1-9][0-9]{8}$/,"{VALUE} is not valid mobile number"]
     },
+    // must contain at least 1 uppercase letter , 1 lowercase letter and 1 number
     password:{
         type:String,
-        required:true,
+        // match:[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9]{8,}$/,"{VALUE} is not valid password"]
+    },
+    googleId:{
+        type:String,
     },
     role:{
         type:String,
@@ -34,17 +37,65 @@ var userSchema = new mongoose.Schema({
         type:String,
         required:[false,"The profile photo is required"]
     },
+    // About me
+    description:{
+        type:String,
+        maxlength: 500,
+        required:false,
+    },
     verified:{
         type:Boolean,
         required:true,
         default:false,
+    },
+    blocked:{
+        type:Boolean,
+        required:true,
+        default:false
     },
     conversations:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"Conversation"
         }
+    ],
+
+    
+    // simple user funcionnnlities
+    services:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Service'
+    }],
+
+    
+    // frelencer funcionnalities    
+    skills: [
+        {
+            type: String,
+        }
+    ],
+    experience: [
+        {
+            title:{
+                type:String,
+            },
+            description:{
+                type:String,
+            }
+        }
+    ],
+    certificate:[
+        {
+            link:{
+                type:String,
+            },
+            verifiedId:{
+                type:String
+            }
+        }
     ]
+
+    
 },{
     timestamps:true
 });
