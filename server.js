@@ -4,8 +4,14 @@ import cors from 'cors'
 import cookieParser from "cookie-parser"
 import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
-import authRouter from './routes/auth.js'
 import morgan from 'morgan'
+
+
+
+// routes
+import authRouter from './routes/auth.js'
+import adminRouter from './routes/admin.js'
+
 
 // init
 dotenv.config()
@@ -20,12 +26,11 @@ app.use(express.json({limit: '100mb'}))
 app.use(express.urlencoded({limit: '100mb', extended: false}))
 app.use(cookieParser())
 app.use(morgan('dev'))
-
 // routers
 
 app.use('/api/auth',authRouter)
 
-
+app.use('/api/admin',adminRouter)
 
 // error middlewares
 app.use(errorHandler)

@@ -1,19 +1,19 @@
 import express from 'express'
 import auth from '../controllers/auth.js'
 
-const userRouter = express.Router()
+const authRouter = express.Router()
 
 // Create account without google
-userRouter.post('/sign-up',auth.createUser)
+authRouter.post('/sign-up',auth.createUser)
 // Create account with google
-userRouter.post('/sign-up/google',auth.createUserWithGoogle)
+authRouter.post('/sign-up/google',auth.createUserWithGoogle)
 
 // Login 
-userRouter.post('/sign-in',auth.loginUser)
+authRouter.post('/sign-in',auth.loginUser)
 // Login with google
-userRouter.post('/sign-in/google',auth.loginUserWithGoogle)
+authRouter.post('/sign-in/google',auth.loginUserWithGoogle)
 
 // logout 
-userRouter.get('/logout',auth.logoutUser)
+authRouter.get('/logout',auth.logoutUser)
 
-export default userRouter ;
+export default authRouter ;

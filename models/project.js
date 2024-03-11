@@ -1,6 +1,6 @@
 import  mongoose from 'mongoose'
 
-var serviceSchema = new mongoose.Schema({
+var projectSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true
@@ -38,4 +38,4 @@ var serviceSchema = new mongoose.Schema({
 });
 
 //Export the model
-export default mongoose.model('Service', serviceSchema);
+export default mongoose.model('Project', projectSchema);

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Declare the Schema of the Mongo model
 const transactionSchema = new mongoose.Schema({
   payerId: {
     type: mongoose.Schema.Types.ObjectId, 
