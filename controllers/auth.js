@@ -1,11 +1,6 @@
 import User from '../models/user.js'
 import { generateToken } from '../utils/token.js'
 
-const clearCookieOptions = {
-  httpOnly: true,
-  expires: new Date(0),
-};
-
 const createUser = async(req,res,next) =>{
     try {
         const {email,password,userName} = req.body
@@ -18,8 +13,9 @@ const createUser = async(req,res,next) =>{
         const token = await generateToken(user._id);    
         
         res.cookie('token', token, {
-          ...clearCookieOptions,
-          maxAge: 72 * 60 * 60 * 1000, // Three days
+            httpOnly:true,
+            secure:true,
+            maxAge: 72 * 60 * 60 * 1000, // Three days
         });
         
         res.json({
@@ -47,8 +43,9 @@ const createUserWithGoogle = async (req, res,next) =>{
         const token = await generateToken(user._id);    
         
         res.cookie('token', token, {
-          ...clearCookieOptions,
-          maxAge: 72 * 60 * 60 * 1000, // Three days
+            httpOnly:true,
+            secure:true,
+            maxAge: 72 * 60 * 60 * 1000, // Three days
         });
         
         res.json({
@@ -82,8 +79,9 @@ const loginUser = async (req, res, next) => {
         const token = await generateToken(user._id);    
 
         res.cookie('token', token, {
-          ...clearCookieOptions,
-          maxAge: 72 * 60 * 60 * 1000, // Three days
+            httpOnly:true,
+            secure:true,
+            maxAge: 72 * 60 * 60 * 1000, // Three days
         });
 
         res.json({
@@ -110,8 +108,9 @@ const loginUserWithGoogle = async (req, res, next) => {
         const token = await generateToken(user._id);    
 
         res.cookie('token', token, {
-          ...clearCookieOptions,
-          maxAge: 72 * 60 * 60 * 1000, // Three days
+            httpOnly:true,
+            secure:true,
+            maxAge: 72 * 60 * 60 * 1000, // Three days
         });
         
         res.json({
@@ -127,7 +126,10 @@ const loginUserWithGoogle = async (req, res, next) => {
 
 const logoutUser = async (req, res, next) => {
   try {
-    res.clearCookie('token', clearCookieOptions);
+    res.clearCookie('token',  {
+        httpOnly: true, 
+        expires: new Date(0),
+    });
     res.json({ message: 'Logout successful', success: true });
   } catch (err) {
     next(err);
