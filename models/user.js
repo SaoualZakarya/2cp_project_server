@@ -62,13 +62,16 @@ var userSchema = new mongoose.Schema({
 
     
     // simple user funcionnnlities
-    services:[{
+    projects:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Service'
+        ref:'Project'
     }],
 
     
-    // frelencer funcionnalities    
+    // frelencer funcionnalities 
+    education:{
+        type:String,
+    },   
     skills: [
         {
             type: String,
@@ -81,6 +84,9 @@ var userSchema = new mongoose.Schema({
             },
             description:{
                 type:String,
+            },
+            prove:{
+                type:String
             }
         }
     ],

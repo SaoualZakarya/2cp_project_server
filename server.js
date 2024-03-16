@@ -1,11 +1,12 @@
 import express from 'express'
+import http from 'http';
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
 import morgan from 'morgan'
-
+import {Server} from 'socket.io'
 
 
 // routes

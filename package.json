@@ -1,5 +1,5 @@
 {
-  "name": "server-side-2cp-project",
+  "name": "2cp_project_server",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -22,6 +22,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.12",
     "sharp": "^0.33.2",
+    "socket.io": "^4.7.4",
     "uniqid": "^5.4.0"
   }
 }
