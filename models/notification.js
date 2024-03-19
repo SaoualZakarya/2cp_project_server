@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-var userSchema = new mongoose.Schema({
+var notificationSchema = new mongoose.Schema({
     message:{
         type:String,
         required:true
@@ -14,4 +14,4 @@ var userSchema = new mongoose.Schema({
     timestamps:string
 });
 
-export default mongoose.model('Notification', userSchema);
+export default mongoose.model('Notification', notificationSchema);

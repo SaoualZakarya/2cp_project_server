@@ -59,7 +59,12 @@ var userSchema = new mongoose.Schema({
             ref:"Conversation"
         }
     ],
-
+    notifications:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Notification"
+        }
+    ],
     
     // simple user funcionnnlities
     projects:[{
