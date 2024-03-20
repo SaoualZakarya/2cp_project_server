@@ -17,5 +17,4 @@ const updateProfile = async (req,res,next) => {
 }
 
 
-
-export {updateProfile}
+export default {updateProfile}

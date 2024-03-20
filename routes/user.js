@@ -5,7 +5,7 @@ import {authMiddleware,isBlocked,isFreelencer, isVerified} from '../middlewares/
 const userRouter = express.Router()
 
 // upload profile picture
-userRouter.
+// userRouter.
 
 // add more user informations
 userRouter.post('/update-profile',authMiddleware,isBlocked,isVerified,user.updateProfile)
