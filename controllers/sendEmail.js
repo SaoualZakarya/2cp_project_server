@@ -1,4 +1,5 @@
-const nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer'
+import sendEmail from '../controllers/sendEmail'
 
 const sendEmail = async(data)=>{
 
@@ -27,4 +28,4 @@ const sendEmail = async(data)=>{
 }
 
 
-module.exports = sendEmail
+export default sendEmail

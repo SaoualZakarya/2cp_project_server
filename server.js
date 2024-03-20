@@ -1,18 +1,18 @@
 import express from 'express'
-import http from 'http';
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
 import morgan from 'morgan'
-import {Server} from 'socket.io'
+// import http from 'http';
+// import {Server} from 'socket.io'
 
 
 // routes
 import authRouter from './routes/auth.js'
 import adminRouter from './routes/admin.js'
-
+import userRouter from './routes/user.js'
 
 // init
 dotenv.config()
@@ -32,6 +32,8 @@ app.use(morgan('dev'))
 app.use('/api/auth',authRouter)
 
 app.use('/api/admin',adminRouter)
+
+app.use('/api/user',userRouter)
 
 // error middlewares
 app.use(errorHandler)

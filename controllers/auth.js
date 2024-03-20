@@ -38,8 +38,9 @@ const createUserWithGoogle = async (req, res,next) =>{
         if (findEmail){
             res.json("Email already exists")
         }
-        const user = await User.create({email,googleId,userName});
-        
+        // the account will be verified directly
+        const user = await User.create({email,googleId,userName,verified:true});
+
         const token = await generateToken(user._id);    
         
         res.cookie('token', token, {

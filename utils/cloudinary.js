@@ -1,5 +1,5 @@
-const cloudinary = require('cloudinary')
-const dotenv = require('dotenv')
+import cloudinary from 'cloudinary'
+import dotenv from 'dotenv'
 dotenv.config()
 
 cloudinary.config({
@@ -33,4 +33,4 @@ const cloudinaryRemoveImg = async (fileToDelete) => {
         })
     })
 }
-module.exports = {cloudinaryUploadImg,cloudinaryRemoveImg}
+export {cloudinaryUploadImg,cloudinaryRemoveImg}
