@@ -136,4 +136,6 @@ const logoutUser = async (req, res, next) => {
   }
 };
 
+
+
 export default {createUser,loginUser,createUserWithGoogle,loginUserWithGoogle,logoutUser}

@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 const transactionSchema = new mongoose.Schema({
-  payerId: {
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+  payer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
-  payeeId: {
+  payeed: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
@@ -14,19 +14,20 @@ const transactionSchema = new mongoose.Schema({
   amount: {
     type: Number,
     required: true,
-    min: 0, 
-  },
-  status: {
-    type: String,
-    default: 'pending',
-    enum: ['pending', 'approved', 'revision', 'completed', 'disputed'],
+    min: 0,
   },
   project: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project',
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ['canceled','pending', 'completed'],
+    default: 'pending',
   },
 }, {
-    timestamps: true 
-}); 
+  timestamps: true,
+});
 
 export default mongoose.model('Transaction', transactionSchema);

@@ -73,7 +73,7 @@ var userSchema = new mongoose.Schema({
     }],
 
     
-    // frelencer funcionnalities 
+    // freelencer funcionnalities 
     education:{
         type:String,
     },   
