@@ -1,17 +1,18 @@
-import { cloudinaryUploadImg, cloudinaryRemoveImg } from "../utils/cloudinary";
+import { cloudinaryUploadImg, cloudinaryRemoveImg } from "../utils/cloudinary.js";
 import fs from 'fs';
 
 // Handle upload image functionality
-const uploadImage = async (req, res,next) => {
+const uploadImage = async (req, res, next) => {
     try {
+        console.log(req.file);
         const uploader = (path) => cloudinaryUploadImg(path);
         const file = req.file; 
         if (!file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
-        const { path } = file;
-        const newPath = await uploader(path);
-        fs.unlinkSync(path);
+        const { path: originalPath } = file; 
+        const newPath = await uploader(originalPath); 
+        fs.unlinkSync(originalPath); 
         res.json({ image: newPath });
     } catch (err) {
         next(err);
@@ -32,4 +33,4 @@ const deleteImage = async (req, res,next) => {
 export {
     uploadImage,
     deleteImage
-};
+}

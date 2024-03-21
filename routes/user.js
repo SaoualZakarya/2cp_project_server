@@ -1,11 +1,16 @@
 import express from 'express'
 import user from '../controllers/user.js'
 import {authMiddleware,isBlocked,isFreelencer, isVerified} from '../middlewares/authMiddleware.js'
+import { resizeProfilePicture, uploadPhoto } from '../middlewares/uploadImage.js'
+import { deleteImage, uploadImage } from '../controllers/upload.js'
 
 const userRouter = express.Router()
 
 // upload profile picture
-// userRouter.
+userRouter.post('/profile-picture',authMiddleware,isBlocked,isVerified,uploadPhoto.single('image'),uploadImage)
+
+// delete picture
+userRouter.delete('/delete-image/:id',authMiddleware,isBlocked,isVerified,deleteImage)
 
 // send verification email
 userRouter.post('/send-verification-email',authMiddleware,isBlocked, user.sendVerificationEmail);

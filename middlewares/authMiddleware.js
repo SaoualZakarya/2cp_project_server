@@ -48,7 +48,7 @@ const isBlocked = async (req,res,next)=>{
 
 const isVerified = async (req,res,next)=>{
     const user = req.user
-    if(user.verified){
+    if(!user.verified){
         res.status(403).json({success:false,message:"You should verify your account"})
     }
     next()

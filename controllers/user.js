@@ -72,6 +72,4 @@ const verifyUser = async (req, res) => {
 };
 
 
-
-
 export default {updateProfile,sendVerificationEmail,verifyUser}
