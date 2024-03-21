@@ -1,17 +1,22 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-var notificationSchema = new mongoose.Schema({
-    message:{
-        type:String,
-        required:true
+const notificationSchema = new mongoose.Schema({
+    message: {
+        type: String,
+        required: true
     },
-    checked:{
-        type:Boolean,
-        required:true,
-        default:false,
+    checked: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true
     }
-},{
-    timestamps:string
+}, {
+    timestamps: true 
 });
 
 export default mongoose.model('Notification', notificationSchema);
