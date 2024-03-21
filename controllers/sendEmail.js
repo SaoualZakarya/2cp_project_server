@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer'
-import sendEmail from '../controllers/sendEmail'
 
 const sendEmail = async(data)=>{
 
@@ -16,7 +15,7 @@ const sendEmail = async(data)=>{
     async function main() {
         // send mail with defined transport object
         const info = await transporter.sendMail({
-          from: ' "hey 👻 " <ecommerceShop1900gmail.com>', 
+          from: ' "hello " <workwave_team@gmail.com>', 
           to:data.to ,
           subject:data.subject ,
           text: data.text ,

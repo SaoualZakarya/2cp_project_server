@@ -43,11 +43,6 @@ var userSchema = new mongoose.Schema({
         maxlength: 500,
         required:false,
     },
-    verified:{
-        type:Boolean,
-        required:true,
-        default:false,
-    },
     blocked:{
         type:Boolean,
         required:true,
@@ -65,6 +60,20 @@ var userSchema = new mongoose.Schema({
             ref:"Notification"
         }
     ],
+
+    // for verification purpose
+    verified:{
+        type:Boolean,
+        required:true,
+        default:false,
+    },
+    verificationToken:{
+        type:String,
+    },
+    tokenExpiration:{
+        type:Date,
+    },
+
     
     // simple user funcionnnlities
     projects:[{
