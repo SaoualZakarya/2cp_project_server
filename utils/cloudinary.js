@@ -1,4 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary'
+import dotenv from 'dotenv'
+dotenv.config() 
 
 cloudinary.config({
     cloud_name:  process.env.CLOUDINARY_NAME,
@@ -6,18 +8,18 @@ cloudinary.config({
     api_secret : process.env.CLOUDINARY_API_SECRET
 })
 
-// upload image to cloudinary
 const cloudinaryUploadImg = async (fileToUpload) => {
-    return new Promise ((resolve)=>{
-        cloudinary.uploader.upload(fileToUpload,(result, error)=>{
-            resolve({
-                url: result.secure_url,
-                asset_id:result.asset_id,
-                public_id:result.public_id
-            })
-        })
-    })
-}
+    try {
+        const result = await cloudinary.uploader.upload(fileToUpload);
+        return {
+            url: result.secure_url,
+            asset_id: result.asset_id,
+            public_id: result.public_id
+        };
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 // remove image from cloudinary
 const cloudinaryRemoveImg = async (fileToDelete) => {

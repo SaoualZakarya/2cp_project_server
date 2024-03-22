@@ -34,8 +34,7 @@ var userSchema = new mongoose.Schema({
         required:true,
     },
     photo:{
-        type:String,
-        required:[false,"The profile photo is required"]
+        type:String
     },
     // About me
     description:{
