@@ -21,6 +21,7 @@ const uploadImage = async (req, res, next) => {
 
 // Handle delete image functionality
 const deleteImage = async (req, res,next) => {
+    // Here the id represent the asset_id 
     const { id } = req.params;
     try {
         await cloudinaryRemoveImg(id, "images");
