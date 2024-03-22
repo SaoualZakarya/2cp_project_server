@@ -1,6 +1,7 @@
 import multer from 'multer';
 import sharp from 'sharp';
 import path from 'path';
+import fs from 'fs'
 
 const absolutePath = path.resolve(process.cwd(), 'public');
 
@@ -27,10 +28,11 @@ const resizeProfilePicture = (req, res, next) => {
     }
 
     const { path } = req.file;
+    req.theOriginalPath = path
     const resizedImagePath = path.replace('.jpeg', '-resized.jpeg');
 
     sharp(path)
-        .resize({ width: 200, height: 200, fit: 'inside' })
+        .resize({ width: 200, height: 200, fit: 'fill' })
         .toFormat('jpeg') 
         .jpeg({ quality: 80 })
         .toFile(resizedImagePath, (err, info) => {
