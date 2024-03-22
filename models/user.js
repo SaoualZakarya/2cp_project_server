@@ -66,14 +66,6 @@ var userSchema = new mongoose.Schema({
     tokenExpiration:{
         type:Date,
     },
-
-    
-    // simple user funcionnnlities
-    projects:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Project'
-    }],
-
     
     // freelencer funcionnalities 
     education:{

@@ -19,6 +19,10 @@ var projectSchema = new mongoose.Schema({
         required:true,
         default:'pending'
     },
+    user :{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
     reserved:[
         {
             user:{

@@ -9,6 +9,7 @@ const userRouter = express.Router()
 // upload profile picture
 userRouter.post('/profile-picture',authMiddleware,isBlocked,isVerified,uploadPhoto.single('image'),resizeProfilePicture,uploadImage)
 
+
 // delete picture
 userRouter.delete('/delete-image/:id',authMiddleware,isBlocked,isVerified,deleteImage)
 

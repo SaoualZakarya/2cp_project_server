@@ -13,6 +13,7 @@ import morgan from 'morgan'
 import authRouter from './routes/auth.js'
 import adminRouter from './routes/admin.js'
 import userRouter from './routes/user.js'
+import clientRouter from './routes/client.js'
 
 // init
 dotenv.config()
@@ -34,6 +35,9 @@ app.use('/api/auth',authRouter)
 app.use('/api/admin',adminRouter)
 
 app.use('/api/user',userRouter)
+
+app.use('/api/client',clientRouter)
+
 
 // error middlewares
 app.use(errorHandler)
