@@ -24,6 +24,10 @@ userRouter.delete('/project/delete/:id',authMiddleware,isBlocked,isVerified,clie
 // get single project
 userRouter.put('/project/status/:id',authMiddleware,isBlocked,isVerified,client.updateProjectStatus)
 
+// accept freelencer in project 
+userRouter.put('/project/participants/accept/:id',authMiddleware,isBlocked,isVerified,client.acceptFreelancerInProject)
 
+// refuse freelencer in project 
+userRouter.put('/project/participants/refuse/:id',authMiddleware,isBlocked,isVerified,client.canceledFreelancerInProject)
 
 export default userRouter ;

@@ -30,7 +30,7 @@ var projectSchema = new mongoose.Schema({
                 ref:"User"
             },
             status:{
-                type:Boolean,
+                type:String,
                 required:true,
                 default:'Pending',
                 enum:['pending','accepted','refused']

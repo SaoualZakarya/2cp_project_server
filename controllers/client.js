@@ -82,9 +82,58 @@ const updateProjectStatus = async (req,res,next) =>{
     }
 }
 
+const acceptFreelancerInProject = async (req, res, next) => {
+    const projectId = req.params.id;
+    const userId = req.body.userId;
+    try {
+        let updatedProject = await Project.findOneAndUpdate(
+            { 
+                _id: projectId, 
+                "reserved.user": userId // Match the project ID and user ID in the reserved array
+            },
+            { 
+                $set: { "reserved.$.status": "accepted" } // Update the status of the matched user
+            },
+            { new: true }
+        );
+
+        if (!updatedProject) {
+            return res.status(404).json({ message: "Project or user not found", success: false });
+        }
+        res.json({ message: "Freelancer accepted successfully in the project", success: true });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+const canceledFreelancerInProject = async (req, res, next) => {
+    const projectId = req.params.id;
+    const userId = req.body.userId;
+    try {
+        let updatedProject = await Project.findOneAndUpdate(
+            { 
+                _id: projectId, 
+                "reserved.user": userId // Match the project ID and user ID in the reserved array
+            },
+            { 
+                $set: { "reserved.$.status": "refused" } // Update the status of the matched user
+            },
+            { new: true }
+        );
+
+        if (!updatedProject) {
+            return res.status(404).json({ message: "Project or user not found", success: false });
+        }
+        res.json({ message: "Freelancer accepted successfully in the project", success: true });
+    } catch (error) {
+        next(error);
+    }
+};
 
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,
-    updateProjectStatus,getClient
+    updateProjectStatus,getClient,
+    acceptFreelancerInProject,canceledFreelancerInProject
 }
