@@ -24,4 +24,6 @@ userRouter.delete('/project/delete/:id',authMiddleware,isBlocked,isVerified,clie
 // get single project
 userRouter.put('/project/status/:id',authMiddleware,isBlocked,isVerified,client.updateProjectStatus)
 
+
+
 export default userRouter ;

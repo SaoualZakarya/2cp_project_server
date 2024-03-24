@@ -49,7 +49,11 @@ const applyProject = async (req, res, next) => {
     let projectId=req.params.id
     let userId=req.user._id
     try {
-        const project = await Project.findByIdAndUpdate(projectId, {
+        const project = await Project.findById(projectId)
+        if(project.status === "complete" || project.status === 'fullfield' || project.status === "canceled"){
+            res.status(404).json({success:false,message:"Project or fullfield complete or canceled"})
+        }
+        await Project.findByIdAndUpdate(projectId, {
             $push: {
                 reserved: {
                     user: userId

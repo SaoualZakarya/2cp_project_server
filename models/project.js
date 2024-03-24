@@ -15,7 +15,7 @@ var projectSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['pending','complete','canceled'],
+        enum:['pending','complete','canceled','fullfield'],
         required:true,
         default:'pending'
     },

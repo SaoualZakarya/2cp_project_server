@@ -16,6 +16,4 @@ router.get('/get',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.ge
 // apply for project
 router.put('/apply/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.applyProject)
 
-
-
 export default router ;
