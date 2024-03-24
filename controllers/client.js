@@ -10,7 +10,6 @@ const getClient = async (req,res,next) => {
     } catch (error) {
         next(error)
     }
-
 }
 const createProject = async (req,res,next) =>{
     try {

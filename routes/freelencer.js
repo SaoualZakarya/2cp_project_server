@@ -13,5 +13,9 @@ router.create('/create',authMiddleware,isBlocked,isVerified,freelencer.createFre
 router.put('/update',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.updateFreelencer)
 // get freelencer
 router.get('/get',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getFreelencer)
+// apply for project
+router.put('/apply/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.applyProject)
+
+
 
 export default router ;

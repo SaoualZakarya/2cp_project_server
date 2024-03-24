@@ -45,7 +45,23 @@ const getFreelencer = async (req, res, next) => {
     }
 }
 
+const applyProject = async (req, res, next) => {
+    let projectId=req.params.id
+    let userId=req.user._id
+    try {
+        const project = await Project.findByIdAndUpdate(projectId, {
+            $push: {
+                reserved: {
+                    user: userId
+                }
+            }
+        }, {new: true})
+        res.json({success:true,message:"Project applied successfully"})
+    }catch(err){
+        next(err)
+    }
+}
 export default {
-    createFreelencer,updateFreelencer,getFreelencer,
-    
+    createFreelencer,updateFreelencer,getFreelencer,applyProject
+
 }
