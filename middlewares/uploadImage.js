@@ -16,7 +16,6 @@ const multerStorage = multer.diskStorage({
     }
 });
 
-// Set up multer instance for single image upload with size limit
 const uploadPhoto = multer({
     storage: multerStorage
 })

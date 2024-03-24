@@ -17,6 +17,29 @@ const uploadImage = async (req, res, next) => {
     }
 };
 
+
+
+// handle upload images functionnality
+const uploadImages = asyncHandler(async(req,res)=>{
+    try{ 
+        let urls = []
+        const files  = req.files
+        for(let file of files){
+            const {path} = file ;
+            const newPath = await cloudinaryUploadImg(path)
+            urls.push(newPath)
+            fs.unlinkSync(path)
+        }
+        const images = urls.map(file =>{
+            return file
+        })
+         res.json(images)
+
+    }catch(err) {
+        throw new Error(err)
+    }
+})
+
 // Handle delete image functionality
 const deleteImage = async (req, res,next) => {
     // Here the id represent the asset_id 
@@ -31,5 +54,6 @@ const deleteImage = async (req, res,next) => {
 
 export {
     uploadImage,
-    deleteImage
+    deleteImage,
+    uploadImages
 }

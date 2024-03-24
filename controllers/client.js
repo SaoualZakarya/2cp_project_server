@@ -1,6 +1,17 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
 
+
+const getClient = async (req,res,next) => {
+    const {id} = req.params
+    try {
+        const client = await User.findById(id)   
+        res.json(client)     
+    } catch (error) {
+        next(error)
+    }
+
+}
 const createProject = async (req,res,next) =>{
     try {
         const {title,amount,description} = req.body
@@ -60,8 +71,21 @@ const deleteSingleUserProject = async (req,res,next) =>{
     
 }
 
+const updateProjectStatus = async (req,res,next) =>{
+    const {status} = req.body
+    const {id} = req.params
+    try {
+        let updatedProject = await Project.findByIdAndUpdate(id,
+            {status},{new:true})
+        res.json({message:"project updated successfully",success:true})
+    }catch (error) {
+        next(error)
+    }
+}
+
 
 export default {
     createProject,getUserProjects,getSingleUserProject,
-    updateProject,deleteSingleUserProject
+    updateProject,deleteSingleUserProject,
+    updateProjectStatus,getClient
 }
