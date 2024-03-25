@@ -65,7 +65,24 @@ const applyProject = async (req, res, next) => {
         next(err)
     }
 }
-export default {
-    createFreelencer,updateFreelencer,getFreelencer,applyProject
 
+const switchIntoUser = async (req,res,next) => {
+    const id = req.user._id
+    try {
+
+        const user = await User.findByIdAndUpdate(id,{
+            role:"user",
+            skills:[],
+            education:'',
+            certificate:[],
+            experience:[]
+        },{new:true})
+        res.json({data:user,message:"You are now a user ",success:true})
+    } catch (error) {
+        next(error)
+    }
+}
+
+export default {
+    createFreelencer,updateFreelencer,getFreelencer,applyProject,switchIntoUser
 }

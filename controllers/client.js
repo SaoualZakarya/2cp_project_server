@@ -131,9 +131,23 @@ const canceledFreelancerInProject = async (req, res, next) => {
     }
 };
 
+const switchIntoFreelencer = async (req,res,next) => {
+    const id = req.user._id
+    try {
+          // Delete all projects associated with the user
+          await Project.deleteMany({ user: id });
+
+          const user = await User.findByIdAndUpdate(id, { role: "freelancer" }, { new: true });
+        res.json({success:true,data:user,message:"You are now freelancer"})
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,
     updateProjectStatus,getClient,
-    acceptFreelancerInProject,canceledFreelancerInProject
+    acceptFreelancerInProject,canceledFreelancerInProject,
+    switchIntoFreelencer
 }

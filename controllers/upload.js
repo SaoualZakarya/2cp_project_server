@@ -17,10 +17,8 @@ const uploadImage = async (req, res, next) => {
     }
 };
 
-
-
 // handle upload images functionnality
-const uploadImages = asyncHandler(async(req,res)=>{
+const uploadImages = async(req,res)=>{
     try{ 
         let urls = []
         const files  = req.files
@@ -36,9 +34,9 @@ const uploadImages = asyncHandler(async(req,res)=>{
          res.json(images)
 
     }catch(err) {
-        throw new Error(err)
+        next(err)
     }
-})
+}
 
 // Handle delete image functionality
 const deleteImage = async (req, res,next) => {

@@ -1,6 +1,6 @@
 import express from 'express'
 import user from '../controllers/user.js'
-import {authMiddleware,isBlocked,isFreelencer, isVerified} from '../middlewares/authMiddleware.js'
+import {authMiddleware,isBlocked, isVerified} from '../middlewares/authMiddleware.js'
 import { resizeProfilePicture, uploadPhoto } from '../middlewares/uploadImage.js'
 import { deleteImage, uploadImage } from '../controllers/upload.js'
 
