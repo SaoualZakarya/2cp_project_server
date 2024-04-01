@@ -20,7 +20,6 @@ const createFreelencer = async (req,res,next) => {
     }
 }
 
-
 const updateFreelencer = async (req,res,next) => {
     const id = req.user._id
     try {
@@ -67,6 +66,67 @@ const applyProject = async (req, res, next) => {
         next(err)
     }
 }
+
+const getProjectsAccepted = async (req,res,next) => {
+    const userId = req.user._id
+    try {
+        const projects = await Project.find({
+            reserved: {
+                $elemMatch: {
+                    user: userId,
+                    status: 'accepted'
+                }
+            }
+        });
+        res.json({success:true,projects})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getProjectsCanceled = async (req,res,next) => {
+    const userId = req.user._id
+    try {
+        const projects = await Project.find({
+            reserved: {
+                $elemMatch: {
+                    user: userId,
+                    status: 'refused'
+                }
+            }
+        });
+        res.json({success:true,projects})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getProjectsExists = async (req, res, next) => {
+    // with this search paramas you can get using search , amount ...
+    const { searchParam, minAmount, maxAmount } = req.query;
+    // we will get only the projects that are pending
+    const filters = { status: 'pending' };
+
+    // allow to check for the search paramas within the title
+    if (searchParam) {
+        filters.title = { $regex: `.*${searchParam}.*`, $options: 'i' }; 
+    }
+
+    if (minAmount && !isNaN(minAmount)) {
+        filters.amount = { $gte: Number(minAmount) };
+    }
+
+    if (maxAmount && !isNaN(maxAmount)) {
+        filters.amount = { ...filters.amount, $lte: Number(maxAmount) };
+    }
+
+    try {
+        const projects = await Project.find(filters);
+        res.json({ success: true, projects });
+    } catch (error) {
+        next(error);
+    }
+};
 
 const switchIntoUser = async (req,res,next) => {
     const id = req.user._id
@@ -157,5 +217,7 @@ export default {
     createFreelencer,updateFreelencer,getFreelencer
     ,applyProject,switchIntoUser,createService,
     updateService,deleteService,
-    getService,getAllFreelencerServices
+    getService,getAllFreelencerServices,
+    getProjectsAccepted,getProjectsCanceled,
+    getProjectsExists
 }

@@ -13,10 +13,20 @@ router.post('/create',authMiddleware,isBlocked,isVerified,freelencer.createFreel
 router.put('/update',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.updateFreelencer)
 // get freelencer
 router.get('/get',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getFreelencer)
+
 // apply for project
 router.put('/apply/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.applyProject)
+
+// get all the project where the freelencer is accepted
+router.get('/get/projects/accepted',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsAccepted)
+// get all the project where the freelencer is refused
+router.get('/get/projects/canceled',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsCanceled)
+//get all existed project with filters and query params
+router.get('/get/projects/exists',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsExists)
+
 // switch role into user 
 router.put('/user',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
+
 // create service
 router.post('/create/service',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.createService)
 // update service
