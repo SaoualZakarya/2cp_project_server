@@ -1,5 +1,7 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
+import Service from '../models/service.js'
+import { cloudinaryRemoveImg } from '../utils/cloudinary.js'
 
 const createFreelencer = async (req,res,next) => {
     const id = req.user._id
@@ -14,7 +16,7 @@ const createFreelencer = async (req,res,next) => {
         },{new:true})
         res.json({success:true,data:freelencer,message:"Freelencer created successfully"})
     } catch (error) {
-        next(err)
+        next(error)
     }
 }
 
@@ -31,7 +33,7 @@ const updateFreelencer = async (req,res,next) => {
         },{new:true})
         res.json({success:true,data:freelencer,message:"Freelencer updated successfully"})
     } catch (error) {
-        next(err)
+        next(error)
     }
 }
 
@@ -41,7 +43,7 @@ const getFreelencer = async (req, res, next) => {
         const freelencer = await User.findById(id)
         res.json({success:true,data:freelencer})
     } catch (error) {
-        next(err)
+        next(error)
     }
 }
 
@@ -69,7 +71,11 @@ const applyProject = async (req, res, next) => {
 const switchIntoUser = async (req,res,next) => {
     const id = req.user._id
     try {
-
+        // to delete the certificate that user already uploaded
+        const userCeritificate = await User.findById(id).select('certificate')
+        for (certificate of userCeritificate.certificate){
+            await cloudinaryRemoveImg(certificate.asset_id)
+        }
         const user = await User.findByIdAndUpdate(id,{
             role:"user",
             skills:[],
@@ -83,6 +89,73 @@ const switchIntoUser = async (req,res,next) => {
     }
 }
 
+const createService = async (req,res,next) => {
+    const id = req.user._id
+    const {service,description,price} = req.body
+    try {
+        const newService = await Service.create({
+            service,
+            description,
+            price,
+            freelancer:id,
+        })
+        res.json({success:true,data:newService,message:"Service created successfully"})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateService = async (req,res,next) => {
+    const serviceId = req.params
+    const {service,description,price} = req.body
+    try {
+        const updatedService = await Service.findByIdAndUpdate(serviceId,{
+            service,
+            description,
+            price,
+        },{new:true})
+        res.json({success:true,data:updatedService,message:"Service updated successfully "})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getService = async (req,res,next) => {
+    const serviceId = req.params
+    try {
+        const theService = await Service.findById(serviceId)
+        if(!theService){
+            res.status(404).json({success:false,message:"Service not found"})
+        }
+        res.json({success:true,data:theService})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteService = async (req,res,next) => {
+    const serviceId = req.params
+    try {
+        const deletedService = await Service.findByIdAndDelete(serviceId)
+        res.json({success:true,message:"Service deleted successfully "})
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getAllFreelencerServices =  async (req,res,next) => {
+    const id = req.user._id
+    try {
+        const freelancerServices = await Service.find({freelancer:id})
+        res.json({success:true,services: freelancerServices})
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
-    createFreelencer,updateFreelencer,getFreelencer,applyProject,switchIntoUser
+    createFreelencer,updateFreelencer,getFreelencer
+    ,applyProject,switchIntoUser,createService,
+    updateService,deleteService,
+    getService,getAllFreelencerServices
 }

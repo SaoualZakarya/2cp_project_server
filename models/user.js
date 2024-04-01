@@ -94,13 +94,18 @@ var userSchema = new mongoose.Schema({
             link:{
                 type:String,
             },
+            asset_id:{
+                type:String,
+            },
             verifiedId:{
                 type:String
             }
         }
     ]
-
-    
+    ,card:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Card"
+    }
 },{
     timestamps:true
 });

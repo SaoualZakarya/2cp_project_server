@@ -17,4 +17,15 @@ router.get('/get',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.ge
 router.put('/apply/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.applyProject)
 // switch role into user 
 router.put('/user',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
+// create service
+router.post('/create/service',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.createService)
+// update service
+router.put('/update/service/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.updateService)
+// delete service
+router.delete('/delete/service/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.deleteService)
+// get all the user services
+router.get('/get/services/all',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getAllFreelencerServices)
+// get Service 
+router.get('/get/service/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getService)
+
 export default router ;
