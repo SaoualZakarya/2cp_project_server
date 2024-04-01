@@ -1,6 +1,6 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
-
+import Service from '../models/service.js'
 
 const getClient = async (req,res,next) => {
     const {id} = req.params
@@ -144,10 +144,36 @@ const switchIntoFreelencer = async (req,res,next) => {
     }
 }
 
+const getServices = async (req, res, next) => {
+    // with this search paramas you can get using search , amount ...
+    const { searchParam, minPrice, maxPrice } = req.query;
+    const filters = {  };
+
+    // allow to check for the search paramas within the service
+    if (searchParam) {
+        filters.service = { $regex: `.*${searchParam}.*`, $options: 'i' }; 
+    }
+
+    if (minAmount && !isNaN(minAmount)) {
+        filters.price = { $gte: Number(minPrice) };
+    }
+
+    if (maxAmount && !isNaN(maxAmount)) {
+        filters.price = { ...filters.amount, $lte: Number(maxPrice) };
+    }
+
+    try {
+        const services = await Service.find(filters);
+        res.json({ success: true, services });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,
     updateProjectStatus,getClient,
     acceptFreelancerInProject,canceledFreelancerInProject,
-    switchIntoFreelencer
+    switchIntoFreelencer,getServices
 }

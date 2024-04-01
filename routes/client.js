@@ -24,4 +24,8 @@ router.put('/project/participants/refuse/:id',authMiddleware,isBlocked,isVerifie
 // switch role into freelencer
 router.put('/freelencer',authMiddleware,isBlocked,isVerified,client.switchIntoFreelencer)
 
+// get all services with filters
+router.get('/services',authMiddleware,isBlocked,isVerified,client.getServices)
+
+
 export default router ;
