@@ -6,11 +6,8 @@ import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
 import morgan from 'morgan'
 import fs from 'fs';
-// import http from 'http';
-// import {Server} from 'socket.io'
-
-
-
+import http from 'http';
+import {Server} from 'socket.io'
 
 // routes
 import authRouter from './routes/auth.js'
@@ -54,6 +51,30 @@ app.use('/api/freelencer',freelencerRouter)
 
 // error middlewares
 app.use(errorHandler)
+
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Initialize Socket.IO
+const io = new Server(server);
+
+// WebSocket event handlers
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
+
+    // Example message event
+    socket.on('chat message', (msg) => {
+        console.log('Message received:', msg);
+        // Broadcast the message to all connected clients
+        io.emit('chat message', msg);
+    });
+
+    // Handle disconnect
+    socket.on('disconnect', () => {
+        console.log('User disconnected: ', socket.id);
+    });
+});
 
 // Start server
 app.listen(PORT,HOST, () => {

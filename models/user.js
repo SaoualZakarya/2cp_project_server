@@ -56,12 +56,6 @@ var userSchema = new mongoose.Schema({
         required:true,
         default:false
     },
-    conversations:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Conversation"
-        }
-    ],
 
     // for verification purpose
     verified:{

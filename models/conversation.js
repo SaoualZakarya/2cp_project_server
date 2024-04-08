@@ -3,10 +3,14 @@ import mongoose from 'mongoose';
 
 // Declare the Schema of the Mongo model
 const conversationSchema = new mongoose.Schema({
-    participants: [{
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    }],
+    },
+    participant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Message',
