@@ -43,11 +43,13 @@ var userSchema = new mongoose.Schema({
     photo:{
         type:String
     },
+    portfolio_url:{
+        type:String,
+    },
     // About me
     description:{
         type:String,
         maxlength: 500,
-        required:false,
     },
     blocked:{
         type:Boolean,

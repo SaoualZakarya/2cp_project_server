@@ -148,4 +148,25 @@ DELETE /api/user/delete-image/:id 'require auth , require upload_profile_picture
 id : represent the asset_id you will got after upload profile picture 
 
 
+#### Add the user information or update the profile information
+
+```http
+POST /api/user/update-profile   'require auth'
+``` 
+
+| Parameter       | Type     |
+| :-------------- | :------- |
+| `photo`         | `string` |
+| `description`   | `string` |
+| `portfolio_url` | `string` |
+
+example :
+
+    {
+        "photo":"https://res.cloudinary.com/dbeurnzkh/image/upload/v1712579171/h2cxrcnmslnslo8sm9pf.jpg",
+        "description":"I am cs student , web developer and penetration tester with more that 2 years in the fields of it",
+        "portfolio_url":"https://zakaryasaoual.com"
+    }
+
+
 </details>

@@ -4,11 +4,15 @@ import sendEmail from './sendEmail.js'
 
 // update user profile
 const updateProfile = async (req,res,next) => {
-    const {photo,description,mobile} = req.body  
+    const {photo,description,portfolio_url} = req.body  
     try{
         const userId = req.user._id
+        // Check the length of the description before updating
+        if ( description.length > 500) {
+            return res.status(400).json({ success: false, message: "Description exceeds maximum length of 500 characters" });
+        }
         const updatedUser = await User.findByIdAndUpdate(userId,{
-            photo,description,mobile
+            photo,description,portfolio_url
         },{
             new:true
         })
