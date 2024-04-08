@@ -1,10 +1,10 @@
 # About the project 
-    This is the backend repository of the project workwave which is freelencing
+This is the backend repository of the project workwave which is freelencing
 platform that empowers users to engage in freelancing opportunities seamlessly build
 as PROJET PLURIDISCIPLINAIRE purposes  using expressjs and mongodb for the backend
 
 ## Schema
-     You will find in here the schema that I use to build this project
+You will find in here the schema that I use to build this project
 ```bash
    $ the link will be here soon
 ```
@@ -16,7 +16,7 @@ as PROJET PLURIDISCIPLINAIRE purposes  using expressjs and mongodb for the backe
    $ git clone https://github.com/zakaryaalgeria/2cp_project_server.git
 ```
 ### Make sure you have nodejs installed on your machine 
-    if you don't you can install it from here
+if you don't you can install it from here
 ```bash
    $ https://nodejs.org/
 ``` 
@@ -28,7 +28,12 @@ Run the command
 ```
 This will install all the dependencies
 ```bash
-    $ check .env file and try to add your own creadentials
+    $ check .env file and add your own creadentials
+```
+
+## Run the project using the command
+```bash
+    $ npm run server
 ```
 
 ## Project Features
