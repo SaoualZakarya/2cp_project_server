@@ -104,8 +104,11 @@ example :
 ### With google
 
 
+#### logout user
 
-
+```http
+GET /api/auth/logout
+```
 
 
 
