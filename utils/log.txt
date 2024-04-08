@@ -21,3 +21,9 @@
 [2024-04-08T13:42:28.499Z] 127.0.0.1 - GET /api/user/get/credit-card
 [2024-04-08T13:42:51.327Z] 127.0.0.1 - GET /api/user/get/credit-card
 [2024-04-08T13:44:03.932Z] 127.0.0.1 - DELETE /api/user/delete/credit-card/6613ef865d032d547bc0e885
+[2024-04-08T14:04:06.220Z] 127.0.0.1 - POST /api/freelencer/certificate/upload
+[2024-04-08T14:05:18.114Z] 127.0.0.1 - POST /api/freelencer/certificate/upload
+[2024-04-08T14:18:00.603Z] 127.0.0.1 - POST /api/freelencer/create
+[2024-04-08T14:31:29.093Z] 127.0.0.1 - POST /api/freelencer/update
+[2024-04-08T14:31:38.393Z] 127.0.0.1 - PUT /api/freelencer/update
+[2024-04-08T14:34:16.434Z] 127.0.0.1 - GET /api/freelencer/get

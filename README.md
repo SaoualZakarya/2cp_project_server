@@ -115,7 +115,7 @@ example :
 GET /api/auth/logout
 ```
 
-## send vefication email for user
+#### send vefication email for user
 
 This will allows you to send vefication email to the user account 
 when the user click in it , his account will be verified succefully
@@ -125,28 +125,6 @@ POST /api/user/send-verification-email  'require auth'
 ```
 
 ## Profile
-
-#### Upload profile picture
-
-```http
-POST /api/user/profile-picture  'require auth'
-```
-
-| Parameter   | Type        |
-| :---------- | :---------- |
-| `image`     | `form-data` |
-
-You will got as result the url of the image uploaded and also you will got
-public_id and asset_id
-
-#### Delete uploaded profile picture
-
-```http
-DELETE /api/user/delete-image/:id 'require auth , require upload_profile_picture'
-```
-
-id : represent the asset_id you will got after upload profile picture 
-
 
 #### Add the user information or update the profile information
 
@@ -227,6 +205,95 @@ GET /api/user/get/credit-card   'require auth'
 ```http
 DELETE /api/user/delete/credit-card/:id   'require auth'
 ``` 
+
+## Upload
+
+#### Upload profile picture
+
+```http
+POST /api/user/profile-picture  'require auth'
+```
+
+| Parameter   | Type        |
+| :---------- | :---------- |
+| `image`     | `form-data` |
+
+You will got as result the url of the image uploaded and also you will got
+public_id and asset_id
+
+#### Upload freelencer certificate
+
+```http
+POST /api/freelencer/certificate/upload  'require auth'
+```
+
+You can upload here more than image once
+
+| Parameter    | Type        |
+| :----------- | :---------- |
+| `images`     | `form-data` |
+
+
+
+#### Delete uploaded  picture
+
+```http
+DELETE /api/user/delete-image/:id 'require auth , require upload_picture'
+```
+
+id : represent the asset_id you will got after upload  picture 
+
+
+
+## Freelencer
+
+#### Create freelencer
+
+```http
+POST /api/freelencer/create 'require auth'
+```
+
+| Parameter     | Type     |
+| :------------ | :------- |
+| `certificate` | `array` |
+| `skills`      | `array` |
+
+example : 
+    {
+        "certificate" : [{
+            "link": "https://res.cloudinary.com/dbeurnzkh/image/upload/v1712585122/qvyxddz4c2hrtllrjt3b.jpg",
+            "asset_id": "af8f6888bf016f2f2f43fe318c180a9c",
+            "verifiedId": "tst.jfdkls23"   // you can get this from the certificate provider 
+        }] ,
+        "skills" : ["ui/ux","front-end","logo design"]
+    }   
+
+#### update freelencer
+
+```http
+PUT /api/freelencer/update 'require auth'
+```
+
+| Parameter     | Type     |
+| :------------ | :------- |
+| `certificate` | `array` |
+| `skills`      | `array` |
+
+example : 
+    {
+        "certificate" : [{
+            "link": "https://res.cloudinary.com/dbeurnzkh/image/upload/v1712585122/qvyxddz4c2hrtllrjt3b.jpg",
+            "asset_id": "af8f6888bf016f2f2f43fe318c180a9c",
+            "verifiedId": "tst.jfdkls23"   // you can get this from the certificate provider 
+        }] ,
+        "skills" : ["ui/ux","front-end","logo design"]
+    }   
+
+#### Get freelencer
+
+```http
+GET /api/freelencer/get 'require auth'
+```
 
 
 

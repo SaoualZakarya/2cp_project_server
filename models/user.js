@@ -76,26 +76,10 @@ var userSchema = new mongoose.Schema({
         type:Date,
     },
     
-    // freelencer funcionnalities 
-    education:{
-        type:String,
-    },   
+    // freelencer funcionnalities   
     skills: [
         {
             type: String,
-        }
-    ],
-    experience: [
-        {
-            title:{
-                type:String,
-            },
-            description:{
-                type:String,
-            },
-            prove:{
-                type:String
-            }
         }
     ],
     certificate:[
