@@ -1,6 +1,6 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
-import Service from '../models/service.js'
+import Service from '../models/freelencerService.js'
 
 const getClient = async (req,res,next) => {
     const {id} = req.params

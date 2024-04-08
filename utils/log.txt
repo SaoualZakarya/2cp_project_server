@@ -1,0 +1,9 @@
+[2024-04-08T10:59:31.615Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:00:12.528Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:00:44.525Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:01:20.576Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:02:19.741Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:05:34.854Z] 127.0.0.1 - POST /api/auth/sign-up
+[2024-04-08T11:11:31.613Z] 127.0.0.1 - POST /api/auth/sign-in
+[2024-04-08T11:11:48.051Z] 127.0.0.1 - POST /api/auth/sign-in
+[2024-04-08T11:11:52.519Z] 127.0.0.1 - POST /api/auth/sign-in

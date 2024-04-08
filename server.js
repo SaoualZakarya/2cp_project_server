@@ -5,8 +5,11 @@ import cookieParser from "cookie-parser"
 import errorHandler from './middlewares/errorHandler.js'
 import dbConnect from './config/dbConnect.js'
 import morgan from 'morgan'
+import fs from 'fs';
 // import http from 'http';
 // import {Server} from 'socket.io'
+
+
 
 
 // routes
@@ -22,6 +25,14 @@ const app = express()
 const PORT = process.env.PORT || 5000
 const HOST = "127.0.0.1"
 dbConnect()
+
+// Middleware to log requests
+app.use((req, res, next) => {
+    const logStream = fs.createWriteStream('./utils/log.txt', { flags: 'a' });
+    logStream.write(`[${new Date().toISOString()}] ${req.ip} - ${req.method} ${req.originalUrl}\n`);
+    logStream.end();
+    next();
+});
 
 // middlewares
 app.use(cors({credentials: true, origin: '*'}))

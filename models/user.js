@@ -3,26 +3,33 @@ import bcrypt from 'bcrypt';
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
-    userName:{
+    firstName:{
         type:String,
-        required:[true, 'UserName is required'],
-        unique:true,
-        match: [/^[a-zA-Z][a-zA-Z0-9_]{3,17}$/, "{VALUE} is not a valid userName"]
+        required:[true, 'FirstName is required'],
+        unique:[true,"firstName is unique"],
+        match: [/^[a-zA-Z]{2,17}$/, "{VALUE} is not a valid firstName"]
+    },
+    lastName:{
+        type:String,
+        required:[true, 'lastName is required'],
+        unique:[true,"lastName is unique"],
+        match: [/^[a-zA-Z]{2,17}$/, "{VALUE} is not a valid lastName"]
     },
     email:{
         type:String,
-        required:true,
+        required:[true,"Email is required"],
         unique:[true,"Email is required"],
         match: [/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/,"{VALUE} is not valid email address"], 
     },
     mobile:{
         type:String,
-        match:[/^[1-9][0-9]{8}$/,"{VALUE} is not valid mobile number"]
+        match:[/^[1-9][0-9]{8}$/,"{VALUE} is not valid mobile number"],
+        required:[true,"Mobile is required"],
     },
     // must contain at least 1 uppercase letter , 1 lowercase letter and 1 number
     password:{
         type:String,
-        // match:[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9]{8,}$/,"{VALUE} is not valid password"]
+        match:[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{7,}$/,"{VALUE} is not valid password"]
     },
     googleId:{
         type:String,

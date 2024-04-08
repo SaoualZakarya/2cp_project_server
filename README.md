@@ -62,27 +62,44 @@ This will install all the dependencies
 #### Signup new user
 
 ```http
-POST /auth/signup
+POST /api/auth/sign-up 
 ```
 
 | Parameter   | Type     |
 | :---------- | :------- |
-| `Username`  | `string` |
-| `Passsword` | `string` |
-| `Passsword` | `string` |
+| `email`     | `string` |
+| `password`  | `string` |
+| `firstName` | `string` |
+| `lastName`  | `string` |
+| `mobile`    | `string` |
+
+example :
+
+    {
+        "firstName":"zakarya",
+        "email":"zakarya@gmail.com",
+        "password":"Password_123",
+        "lastName":"saoual",
+        "mobile":"545342389"
+    }
 
 #### Login user
 
 ```http
-POST /auth/signup
+POST /api/auth/sign-in
 ```
 
 | Parameter   | Type     |
 | :---------- | :------- |
-| `Username`  | `string` |
-| `Passsword` | `string` |
+| `email`     | `string` |
 | `Passsword` | `string` |
 
+example :
+
+    {
+        "email":"zakarya@gmail.com",
+        "password":"Password_123"
+    }
 
 ### With google
 
