@@ -1,6 +1,8 @@
 import User from '../models/user.js'
+import Card from '../models/creditCard.js'
 import generateUniqueToken from '../utils/generateUniqueToken.js'
 import sendEmail from './sendEmail.js'
+
 
 // update user profile
 const updateProfile = async (req,res,next) => {
@@ -75,5 +77,41 @@ const verifyUser = async (req, res) => {
     }
 };
 
+const createCard = async (req,res,next) => {
+    const id = req.user._id;
+    const { cardholderName,type, cardNumber, expirationDate, cvv } = req.body;
 
-export default {updateProfile,sendVerificationEmail,verifyUser}
+    // Check if cardholderName contains only alphabets
+    if (!/^[A-Za-z\s]+$/.test(cardholderName)) {
+        return res.status(400).json({ success: false, message: 'Cardholder name should contain only alphabets' });
+    }
+
+    // Check if cardNumber is exactly 16 digits
+    if (!/^\d{16}$/.test(cardNumber)) {
+        return res.status(400).json({ success: false, message: 'Card number should be exactly 16 digits' });
+    }
+
+    // Check if cvv is exactly 4 digits
+    if (!/^\d{4}$/.test(cvv)) {
+        return res.status(400).json({ success: false, message: 'CVV should be exactly 4 digits' });
+    }
+
+
+    const newCard = new Card({
+        cardholderName,
+        cardNumber,
+        expirationDate,
+        cvv,
+        user:id,
+        type
+    });
+
+    try {
+        const savedCard = await newCard.save();
+        res.json({ success: true, message: 'Card created successfully' });
+    } catch (error) {
+        next(error)
+    }
+}
+
+export default {updateProfile,sendVerificationEmail,verifyUser,createCard}

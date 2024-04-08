@@ -20,6 +20,8 @@ userRouter.get('/verify/:token',authMiddleware,isBlocked, user.verifyUser)
 // Add more user informations
 userRouter.post('/update-profile',authMiddleware,isBlocked,isVerified,user.updateProfile)
 
+// Create user payment card
+userRouter.post('/create-card',authMiddleware,isBlocked,isVerified,user.createCard)
 
 
 export default userRouter ;

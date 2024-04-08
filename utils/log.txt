@@ -15,3 +15,5 @@
 [2024-04-08T12:07:36.678Z] 127.0.0.1 - DELETE /api/user/delete-image/fa83a89d72bb96bcac28c9794d0d8731
 [2024-04-08T12:26:10.911Z] 127.0.0.1 - POST /api/user/profile-picture
 [2024-04-08T12:27:36.245Z] 127.0.0.1 - POST /api/user/update-profile
+[2024-04-08T13:21:40.497Z] 127.0.0.1 - POST /api/user/create-card
+[2024-04-08T13:22:14.841Z] 127.0.0.1 - POST /api/user/create-card
