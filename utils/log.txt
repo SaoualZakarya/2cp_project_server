@@ -7,3 +7,9 @@
 [2024-04-08T11:11:31.613Z] 127.0.0.1 - POST /api/auth/sign-in
 [2024-04-08T11:11:48.051Z] 127.0.0.1 - POST /api/auth/sign-in
 [2024-04-08T11:11:52.519Z] 127.0.0.1 - POST /api/auth/sign-in
+[2024-04-08T11:35:16.842Z] 127.0.0.1 - GET /api/auth/logout
+[2024-04-08T11:43:31.674Z] 127.0.0.1 - POST /api/auth/sign-in
+[2024-04-08T11:43:39.494Z] 127.0.0.1 - POST /api/user/send-verification-email
+[2024-04-08T11:53:24.956Z] 127.0.0.1 - POST /api/user/profile-picture
+[2024-04-08T11:53:59.505Z] 127.0.0.1 - POST /api/user/profile-picture
+[2024-04-08T12:07:36.678Z] 127.0.0.1 - DELETE /api/user/delete-image/fa83a89d72bb96bcac28c9794d0d8731

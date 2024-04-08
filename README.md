@@ -103,6 +103,11 @@ example :
 
 ### With google
 
+    will be added soon ...
+
+#### verify user account 
+
+
 
 #### logout user
 
@@ -110,11 +115,37 @@ example :
 GET /api/auth/logout
 ```
 
+## send vefication email for user
 
+This will allows you to send vefication email to the user account 
+when the user click in it , his account will be verified succefully
 
+```http
+POST /api/user/send-verification-email  'require auth'
+```
 
+## Profile
 
+#### Upload profile picture
 
+```http
+POST /api/user/profile-picture  'require auth'
+```
+
+| Parameter   | Type        |
+| :---------- | :---------- |
+| `image`     | `form-data` |
+
+You will got as result the url of the image uploaded and also you will got
+public_id and asset_id
+
+#### Delete uploaded profile picture
+
+```http
+DELETE /api/user/delete-image/:id 'require auth , require upload_profile_picture'
+```
+
+id : represent the asset_id you will got after upload profile picture 
 
 
 </details>

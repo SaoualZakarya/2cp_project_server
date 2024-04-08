@@ -36,7 +36,7 @@ const sendVerificationEmail = async (req, res) => {
         // Send verification email
         await sendEmail({
             to: req.user.email,
-            subject: 'Account Verification for workwave platform',
+            subject: 'Account Verification for workwave freelencing platform ',
             text: `Please click the following link to verify your account: ${verificationLink}`,
             html: `<p>Please click the following link to verify your account: <a href="${verificationLink}">${verificationLink}</a></p>`
         });

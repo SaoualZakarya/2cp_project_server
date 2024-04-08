@@ -6,19 +6,20 @@ import { deleteImage, uploadImage } from '../controllers/upload.js'
 
 const userRouter = express.Router()
 
-// upload profile picture
+// Upload profile picture
 userRouter.post('/profile-picture',authMiddleware,isBlocked,isVerified,uploadPhoto.single('image'),resizeProfilePicture,uploadImage)
 
-// delete picture
+// delete picture 
 userRouter.delete('/delete-image/:id',authMiddleware,isBlocked,isVerified,deleteImage)
 
-// send verification email
+// Send verification email
 userRouter.post('/send-verification-email',authMiddleware,isBlocked, user.sendVerificationEmail);
-// verify account 
+// Verify account - link will be send to the user -
 userRouter.get('/verify/:token',authMiddleware,isBlocked, user.verifyUser)
 
-// add more user informations
+// Add more user informations
 userRouter.post('/update-profile',authMiddleware,isBlocked,isVerified,user.updateProfile)
+
 
 
 export default userRouter ;
