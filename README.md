@@ -1,1 +1,95 @@
-# 2cp_project_server
+# About the project 
+    This is the backend repository of the project workwave which is freelencing
+platform that empowers users to engage in freelancing opportunities seamlessly build
+as PROJET PLURIDISCIPLINAIRE purposes  using expressjs and mongodb for the backend
+
+## Schema
+     You will find in here the schema that I use to build this project
+```bash
+   $ the link will be here soon
+```
+
+## How to use this project
+
+### Clone this repo Into your local machine 
+```bash
+   $ git clone https://github.com/zakaryaalgeria/2cp_project_server.git
+```
+### Make sure you have nodejs installed on your machine 
+    if you don't you can install it from here
+```bash
+   $ https://nodejs.org/
+``` 
+### After cloning the repo 
+    Open the terminal on this repository 
+    Run the command 
+```bash
+    $ npm install
+```
+    this will install all the dependencies
+```bash
+    $ check .env file and try to add your own creadentials
+```
+
+## Project Features
+```bash
+    $ Description will be sooner in here
+```
+<details>
+<summary>Click to expand project features</summary>
+
+**User Authentication :**
+- [x] Signup / Registration =  using google or without google
+- [x] Login = using google or without google
+- [x] Update all account information 
+  
+</details>
+
+## API Reference
+
+<details>
+<summary>Click to expand API refrence</summary>
+    
+## Auth 
+
+### Without google
+
+#### Signup new user
+
+```http
+POST /auth/signup
+```
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `Username`  | `string` |
+| `Passsword` | `string` |
+| `Passsword` | `string` |
+
+#### Login user
+
+```http
+POST /auth/signup
+```
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `Username`  | `string` |
+| `Passsword` | `string` |
+| `Passsword` | `string` |
+
+
+### With google
+
+
+
+
+
+
+
+
+
+
+
+
+</details>
