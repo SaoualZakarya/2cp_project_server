@@ -21,12 +21,12 @@ as PROJET PLURIDISCIPLINAIRE purposes  using expressjs and mongodb for the backe
    $ https://nodejs.org/
 ``` 
 ### After cloning the repo 
-    Open the terminal on this repository 
-    Run the command 
+Open the terminal on this repository 
+Run the command 
 ```bash
     $ npm install
 ```
-    this will install all the dependencies
+This will install all the dependencies
 ```bash
     $ check .env file and try to add your own creadentials
 ```
