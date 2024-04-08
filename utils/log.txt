@@ -17,3 +17,7 @@
 [2024-04-08T12:27:36.245Z] 127.0.0.1 - POST /api/user/update-profile
 [2024-04-08T13:21:40.497Z] 127.0.0.1 - POST /api/user/create-card
 [2024-04-08T13:22:14.841Z] 127.0.0.1 - POST /api/user/create-card
+[2024-04-08T13:34:35.361Z] 127.0.0.1 - PUT /api/user/update/credit-card/6613ef865d032d547bc0e885
+[2024-04-08T13:42:28.499Z] 127.0.0.1 - GET /api/user/get/credit-card
+[2024-04-08T13:42:51.327Z] 127.0.0.1 - GET /api/user/get/credit-card
+[2024-04-08T13:44:03.932Z] 127.0.0.1 - DELETE /api/user/delete/credit-card/6613ef865d032d547bc0e885

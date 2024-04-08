@@ -36,7 +36,7 @@ This will install all the dependencies
     $ npm run server
 ```
 
-## Project Features
+# Project Features
 ```bash
     $ Description will be sooner in here
 ```
@@ -50,7 +50,7 @@ This will install all the dependencies
   
 </details>
 
-## API Reference
+# API Reference
 
 <details>
 <summary>Click to expand API refrence</summary>
@@ -170,7 +170,6 @@ example :
 
 #### Add credit card information
 
-    
 ```http
 POST /api/user/create-card   'require auth'
 ``` 
@@ -192,5 +191,43 @@ example :
         "cvv":"2345",
         "type":"wise"
     }
+
+#### Update credit card information
+
+```http
+PUT /api/user/update/credit-card/:id   'require auth'
+``` 
+
+| Parameter        | Type     |
+| :--------------- | :------- |
+| `expirationDate` | `string` |
+| `cardNumber`     | `string` |
+| `cardholderName` | `string` |
+| `cvv`            | `string` |
+| `type`           | `string` |
+
+example :
+
+    {
+        "cardholderName":"zakarya saoual",
+        "cardNumber":"9032212398764567",
+        "expirationDate":"03/28",
+        "cvv":"2345",
+        "type":"pypal"
+    }
+
+#### get credit card information
+
+```http
+GET /api/user/get/credit-card   'require auth'
+``` 
+
+#### delete credit card information
+
+```http
+DELETE /api/user/delete/credit-card/:id   'require auth'
+``` 
+
+
 
 </details>

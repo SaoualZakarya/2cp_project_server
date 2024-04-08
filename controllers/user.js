@@ -96,7 +96,6 @@ const createCard = async (req,res,next) => {
         return res.status(400).json({ success: false, message: 'CVV should be exactly 4 digits' });
     }
 
-
     const newCard = new Card({
         cardholderName,
         cardNumber,
@@ -114,4 +113,56 @@ const createCard = async (req,res,next) => {
     }
 }
 
-export default {updateProfile,sendVerificationEmail,verifyUser,createCard}
+const updateCard = async (req,res,next) => {
+    const id = req.params.id;
+    const { cardholderName,type, cardNumber, expirationDate, cvv } = req.body;
+
+    // Check if cardholderName contains only alphabets
+    if (!/^[A-Za-z\s]+$/.test(cardholderName)) {
+        return res.status(400).json({ success: false, message: 'Cardholder name should contain only alphabets' });
+    }
+
+    // Check if cardNumber is exactly 16 digits
+    if (!/^\d{16}$/.test(cardNumber)) {
+        return res.status(400).json({ success: false, message: 'Card number should be exactly 16 digits' });
+    }
+
+    // Check if cvv is exactly 4 digits
+    if (!/^\d{4}$/.test(cvv)) {
+        return res.status(400).json({ success: false, message: 'CVV should be exactly 4 digits' });
+    }
+    try {
+        const updatedCard = await Card.findByIdAndUpdate(id,{
+            cardholderName,
+            cardNumber,
+            expirationDate,
+            cvv,
+            type
+        },{new:true});
+        res.json({ success: true, message: 'Card updated successfully' });
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getCard = async (req,res,next) =>{
+    const id = req.user._id;
+    try {
+        const card = await Card.findOne({user:id});
+        res.json({ success: true, card });
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteCard = async (req,res,next) => {
+    const id = req.params.id;
+    try {
+        const deletedCard = await Card.findByIdAndDelete(id);
+        res.json({ success: true, message: 'Card deleted successfully' });
+    } catch (error) {
+        next(error)
+    }
+}
+
+export default {updateProfile,sendVerificationEmail,getCard,deleteCard,verifyUser,createCard,updateCard}
