@@ -297,19 +297,55 @@ GET /api/freelencer/get 'require auth'
 
 ## Chat
 
-مزال راني معاها
-
 #### Get all messages
 
 ```http
-GET /api/chat//get_all 'require auth'
+GET /api/chat/message/get_all 'require auth'
 ```
 
-#### Delete message
+| Parameter      | Type     |
+| :------------- | :------- |
+| `conversation` | `string` |
+
+
+#### Create message
 
 ```http
-GET /api/message/:id 'require auth'
+POST /api/chat/message/create 'require auth'
 ```
+
+| Parameter      | Type     |
+| :------------- | :------- |
+| `conversation` | `string` |
+| `content`      | `string` |
+
+    conversation id
+
+#### Create conversation
+
+```http
+POST /api/chat/conversation/create 'require auth'
+```
+
+| Parameter      | Type     |
+| :------------- | :------- |
+| `participant`  | `string` |
+
+    the participant id 
+
+
+#### Get all conversations
+
+```http
+GET /api/chat/conversation/all 'require auth'
+```
+
+#### Delete conversation
+
+```http
+GET /api/chat/message/delete/:id 'require auth'
+```
+    Here the conversation id
 
 
 </details>
