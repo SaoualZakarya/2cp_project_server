@@ -295,6 +295,21 @@ example :
 GET /api/freelencer/get 'require auth'
 ```
 
+## Chat
+
+مزال راني معاها
+
+#### Get all messages
+
+```http
+GET /api/chat//get_all 'require auth'
+```
+
+#### Delete message
+
+```http
+GET /api/message/:id 'require auth'
+```
 
 
 </details>

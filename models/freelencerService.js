@@ -26,7 +26,7 @@ const serviceSchema = new mongoose.Schema({
             status:{
                 type:String,
                 default:'pending',
-                enum:['canceled','done']
+                enum:['canceled','pending','done']
             }
         }
     ],

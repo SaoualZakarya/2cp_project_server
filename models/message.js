@@ -9,6 +9,10 @@ var messageSchema = new mongoose.Schema({
     sender:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
+    },
+    conversation:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Conversation"
     }
 },{
     timestamps:true
