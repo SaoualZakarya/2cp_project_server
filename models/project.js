@@ -1,4 +1,4 @@
-import  mongoose from 'mongoose'
+import mongoose from 'mongoose'
 
 var projectSchema = new mongoose.Schema({
     title:{
@@ -34,7 +34,11 @@ var projectSchema = new mongoose.Schema({
                 enum:['pending','accepted','refused']
             }
         }
-    ]
+    ],
+    acceptedFreelencer :{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
 },{
     timestamps:true
 });

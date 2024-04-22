@@ -2,15 +2,16 @@ import Project from '../models/project.js'
 import User from '../models/user.js'
 import Service from '../models/freelencerService.js'
 
-const getClient = async (req,res,next) => {
-    const {id} = req.params
-    try {
-        const client = await User.findById(id)   
-        res.json(client)     
-    } catch (error) {
-        next(error)
-    }
-}
+// const getClient = async (req,res,next) => {
+//     const {id} = req.params
+//     try {
+//         const client = await User.findById(id)   
+//         res.json(client)     
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+
 const createProject = async (req,res,next) =>{
     try {
         const {title,amount,description} = req.body
@@ -46,41 +47,62 @@ const getUserProjects = async (req,res,next) =>{
     
 }
 
-const getSingleUserProject = async (req,res,next) =>{
-    //represent the project id
-    const {id} = req.params
+const getSingleUserProject = async (req, res, next) => {
+    // Represent the project id
+    const { id } = req.params;
+    const userId = req.user._id;
+
     try {
-        const userProject = await Project.findById(id).populate('reserved')
-        res.json(userProject)
+        const userProject = await Project.findOne({ _id: id, user: userId })
+            .populate('reserved.user');
+
+        if (userProject) {
+            res.json(userProject);
+        } else {
+            res.status(404).json({ message: "Project not found", success: false });
+        }
     } catch (error) {
         next(error);
     }
-    
 }
 
-const deleteSingleUserProject = async (req,res,next) =>{
-    //represent the project id
-    const {id} = req.params
+
+const deleteSingleUserProject = async (req, res, next) => {
+    // Represent the project id
+    const { id } = req.params;
+    const userId = req.user._id;
+
     try {
-        const userProject = await Project.findByIdAndDelete(id)
-        res.json({message:"project deleted successfully",success:true,data:userProject})
+        const userProject = await Project.findOneAndDelete({ _id: id, user: userId });
+
+        if (!userProject) {
+            return res.status(404).json({ message: "Project not found", success: false });
+        }
+
+        res.json({ message: "Project deleted successfully", success: true, data: userProject });
     } catch (error) {
         next(error);
     }
-    
 }
 
-const updateProjectStatus = async (req,res,next) =>{
-    const {status} = req.body
-    const {id} = req.params
+
+const updateProjectStatus = async (req, res, next) => {
+    const { status } = req.body;
+
+    const acceptedStatuses = ['pending', 'complete', 'canceled', 'fullfield'];
+
+    if (!acceptedStatuses.includes(status)) {
+        return res.status(400).json({ success: false, message: "Invalid status supplied" });
+    }
+
     try {
-        let updatedProject = await Project.findByIdAndUpdate(id,
-            {status},{new:true})
-        res.json({message:"project updated successfully",success:true})
-    }catch (error) {
-        next(error)
+        let updatedProject = await Project.findByIdAndUpdate(id, { status }, { new: true });
+        res.json({ message: "Project updated successfully", success: true });
+    } catch (error) {
+        next(error);
     }
 }
+
 
 const acceptFreelancerInProject = async (req, res, next) => {
     const projectId = req.params.id;
@@ -173,7 +195,7 @@ const getServices = async (req, res, next) => {
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,
-    updateProjectStatus,getClient,
+    updateProjectStatus,
     acceptFreelancerInProject,canceledFreelancerInProject,
     switchIntoFreelencer,getServices
 }

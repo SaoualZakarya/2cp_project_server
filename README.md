@@ -347,5 +347,125 @@ GET /api/chat/message/delete/:id 'require auth'
 ```
     Here the conversation id
 
+## Client
+
+#### Create project
+
+```http
+POST /api/client/project/create 'require auth'
+```
+
+| Parameter     | Type     |
+| :------------ | :------- |
+| `title`       | `string` |
+| `description` | `string` |
+| `amount`      | `integer`|
+
+example : 
+      
+{
+    "title":"ecommerce website",
+    "description":"ecommerce website where i can put product to present them , also sell them ...",
+    "amount":3000
+}
+
+
+#### Update project
+
+```http
+PUT /api/client/project/update/:id 'require auth'
+```
+
+| Parameter     | Type     |
+| :------------ | :------- |
+| `title`       | `string` |
+| `description` | `string` |
+| `amount`      | `integer`|
+
+example : 
+      
+{
+    "title":"ecommerce website 2",
+    "description":"ecommerce website where i can put product to present them , also sell them ...",
+    "amount":3000
+}
+
+#### Get all user projects
+
+```http
+GET /api/client/projects/all 'require auth'
+```
+
+#### Get single project for user
+
+```http
+GET /api/client/project/get/:id 'require auth'
+```
+
+#### Delete single project from the creator user
+
+```http
+DELETE /api/client/project/delete/:id 'require auth'
+```
+
+#### Update project status
+
+```http
+PUT /api/client/project/status/:id 'require auth'
+```
+
+| Parameter      | Type     |
+| :------------- | :------- |
+| `status`       | `string` |
+
+#### Accept freelencer in project
+
+```http
+PUT /api/client/project/ 'require auth'
+```
+
+| Parameter      | Type     |
+| :------------- | :------- |
+| `status`       | `string` |
+
+#### Canceled freelencer from project
+
+```http
+PUT /api/client/project/ 'require auth'
+```
+
+| Parameter      | Type     |
+| :------------- | :------- |
+| `status`       | `string` |
+
+#### Switch the account into freelencer
+
+```http
+PUT /api/client/freelencer 'require auth'
+```
+
+
+#### Get services
+
+```http
+GET /api/client/services 'require auth'
+```
+    You are allowd to add the query parameters 
+
+        searchParam, minPrice, maxPrice
+
+    To do filtering functionnality
+
+Query parameters available :
+
+*   `searchParam`: Search by    
+*   `minPrice`: min price    
+*   `maxPrice`: max price    
+
+
+#### get all
+
+
+## Last
 
 </details>
