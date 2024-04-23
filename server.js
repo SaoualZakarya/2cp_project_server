@@ -8,6 +8,8 @@ import morgan from 'morgan'
 import fs from 'fs';
 import http from 'http';
 import {Server} from 'socket.io'
+import limiter from './utils/requestLimiter.js'
+
 
 // routes
 import authRouter from './routes/auth.js'
@@ -38,6 +40,7 @@ app.use(express.json({limit: '100mb'}))
 app.use(express.urlencoded({limit: '100mb', extended: false}))
 app.use(cookieParser())
 app.use(morgan('dev'))
+app.use(limiter)
 // routers
 
 app.use('/api/auth',authRouter)

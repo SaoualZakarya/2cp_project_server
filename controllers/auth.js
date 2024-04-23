@@ -180,6 +180,9 @@ const loginUserWithGoogle = async (req, res, next) => {
     }
 };
 
+
+
+
 const logoutUser = async (req, res, next) => {
   try {
     res.clearCookie('token',  {
