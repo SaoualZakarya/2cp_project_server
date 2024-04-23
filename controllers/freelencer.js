@@ -55,7 +55,8 @@ const applyProject = async (req, res, next) => {
                 reserved: {
                     user: userId
                 }
-            }
+            },
+            $inc: { reservedCount: 1 }
         }, {new: true})
         res.json({success:true,message:"Project applied successfully"})
     }catch(err){
@@ -96,8 +97,7 @@ const getProjectsCanceled = async (req,res,next) => {
 const getProjectsExists = async (req, res, next) => {
     // with this search paramas you can get using search , amount ...
     const { searchParam, minAmount, maxAmount } = req.query;
-    // we will get only the projects that are pending
-    const filters = { status: 'pending' };
+    const filters = { };
 
     // allow to check for the search paramas within the title
     if (searchParam) {
@@ -113,21 +113,33 @@ const getProjectsExists = async (req, res, next) => {
     }
 
     try {
-        const projects = await Project.find(filters);
+        let query = Project.find();
+    
+        // Apply filters only if they are defined
+        if (Object.keys(filters).length > 0) {
+            query = query.find(filters);
+        }
+    
+        const projects = await query
+        .populate('user', 'firstName lastName')
+        .populate('acceptedFreelencer', 'firstName lastName')
+        .select('-reserved').exec();
+        console.log(projects)
         res.json({ success: true, projects });
     } catch (error) {
         next(error);
     }
+    
 };
 
 const switchIntoUser = async (req,res,next) => {
     const id = req.user._id
     try {
         // to delete the certificate that user already uploaded
-        const userCeritificate = await User.findById(id).select('certificate')
-        for (certificate of userCeritificate.certificate){
-            await cloudinaryRemoveImg(certificate.asset_id)
-        }
+        const userCeritificate = await User.findById(id)
+        userCeritificate.certificate.forEach(async (certificate) => {
+            await cloudinaryRemoveImg(certificate.asset_id);
+        });
         const user = await User.findByIdAndUpdate(id,{
             role:"user",
             skills:[],

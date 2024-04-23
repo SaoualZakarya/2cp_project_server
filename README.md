@@ -358,6 +358,20 @@ GET /get/projects/accepted 'require auth'
 GET /get/projects/canceled 'require auth'
 ```
 
+#### Get all the project
+
+```http
+GET /api/freelencer/get/projects/exists 'require auth'
+```
+
+#### Switch account into user
+
+```http
+PUT /api/freelencer/client 'require auth'
+```
+
+
+
 ## Chat
 
 #### Get all messages
@@ -534,15 +548,15 @@ GET /api/client/services 'require auth'
 ```
     You are allowd to add the query parameters 
 
-        searchParam, minPrice, maxPrice
+        searchParam, minAmount, maxAmount
 
     To do filtering functionnality
 
 Query parameters available :
 
 *   `searchParam`: Search by    
-*   `minPrice`: min price    
-*   `maxPrice`: max price    
+*   `minAmount`: min amount  
+*   `maxAmount`: max amount    
 
 
 #### get all

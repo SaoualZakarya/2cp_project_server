@@ -114,7 +114,7 @@ const acceptFreelancerInProject = async (req, res, next) => {
                 "reserved.user": userId // Match the project ID and user ID in the reserved array
             },
             { 
-                $set: { "acceptedFreelencer": userId }
+                $set: { "acceptedFreelencer": userId  , status:"fullfield" }
             },
             { new: true }
         );
@@ -168,7 +168,7 @@ const switchIntoFreelencer = async (req,res,next) => {
 
 const getServices = async (req, res, next) => {
     // with this search paramas you can get using search , amount ...
-    const { searchParam, minPrice, maxPrice } = req.query;
+    const { searchParam, minAmount, maxAmount } = req.query;
     const filters = {  };
 
     // allow to check for the search paramas within the service
@@ -177,15 +177,22 @@ const getServices = async (req, res, next) => {
     }
 
     if (minAmount && !isNaN(minAmount)) {
-        filters.price = { $gte: Number(minPrice) };
+        filters.price = { $gte: Number(minAmount) };
     }
 
     if (maxAmount && !isNaN(maxAmount)) {
-        filters.price = { ...filters.amount, $lte: Number(maxPrice) };
+        filters.price = { ...filters.amount, $lte: Number(maxAmount) };
     }
 
     try {
-        const services = await Service.find(filters);
+        let query = Service.find();
+
+        // Apply filters only if they are defined
+        if (Object.keys(filters).length > 0) {
+            query = query.find(filters);
+        }
+
+        const services = await query.exec();
         res.json({ success: true, services });
     } catch (error) {
         next(error);

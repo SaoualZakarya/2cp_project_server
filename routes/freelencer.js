@@ -25,7 +25,7 @@ router.get('/get/projects/canceled',authMiddleware,isBlocked,isVerified,isFreele
 router.get('/get/projects/exists',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsExists)
 
 // switch role into user 
-router.put('/user',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
+router.put('/client',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
 
 // create service
 router.post('/create/service',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.createService)

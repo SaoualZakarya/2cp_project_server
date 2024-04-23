@@ -35,6 +35,10 @@ var projectSchema = new mongoose.Schema({
             }
         }
     ],
+    reservedCount:{
+        type:Number,
+        default:0
+    },
     acceptedFreelencer :{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
