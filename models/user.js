@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
@@ -57,7 +58,7 @@ var userSchema = new mongoose.Schema({
         default:false
     },
 
-    // for verification purpose
+    // for verification of the account
     verified:{
         type:Boolean,
         required:true,
@@ -88,7 +89,12 @@ var userSchema = new mongoose.Schema({
                 type:String
             }
         }
-    ]
+    ],
+    // For password update
+    passwordChangedAt: { type: Date, default: Date.now() - (24 * 60 * 60 * 1000) },
+    passwordResetToken: { type: String, default: undefined },
+    passwordResetExpires: { type: Date, default: undefined }
+
 },{
     timestamps:true
 });
@@ -109,6 +115,20 @@ userSchema.pre('save', async function(next) {
 // to check if the password matched when login user
 userSchema.methods.isPasswordMatched = async function (entredPassword) {
     return await bcrypt.compare(entredPassword, this.password)
+}
+
+userSchema.methods.createPasswordResetToken = async function () {
+    try{
+        // generate string as reset token
+        const resetToken = crypto.randomBytes(32).toString('hex')
+        // We need to hash the token before store it in the data base 
+        this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+        this.passwordResetExpires = Date.now() + 10 * 60 * 1000 
+        // we return the resest token
+        return resetToken
+    }catch(err){
+        throw err
+    }
 }
 
 //Export the model

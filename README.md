@@ -124,6 +124,49 @@ when the user click in it , his account will be verified succefully
 POST /api/user/send-verification-email  'require auth'
 ```
 
+### Forgot password
+
+
+#### Forgot password token
+
+    Will be sent via email to the user account
+
+```http
+POST /api/auth/forgot-password-token
+```
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `email`     | `string` |
+
+example :
+
+    {
+        "email":"gptchat702@gmail.com"
+    }
+
+#### Reset  Password with forgot password token
+
+    Will be sent via email to the user account
+
+```http
+PUT /api/auth/reset-password/:token
+```
+
+    Here after he clicks the link on his email he will got this link to the
+        front-end page when he can update his password
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `password`  | `string` |
+
+example :
+
+    {
+        "password":"Za@#_+s@#12ka123ASqw"
+    }
+
+
 ## Profile
 
 #### Add the user information or update the profile information

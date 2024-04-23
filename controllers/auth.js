@@ -1,5 +1,7 @@
 import User from '../models/user.js'
 import { generateToken } from '../utils/token.js'
+import crypto from 'crypto'
+import sendEmail from './sendEmail.js';
 
 
 // Regular expressions for email and password
@@ -61,6 +63,7 @@ const createUser = async(req,res,next) =>{
             firstName: user.firstName,
             lastName: user.lastName,
             mobile:user.mobile,
+            verified:user.verified
         });
 
     }catch(err){
@@ -109,6 +112,7 @@ const loginUser = async (req, res, next) => {
             firstName: user.firstName,
             lastName: user.lastName,
             mobile:user.mobile,
+            verified:user.verified
         });
 
     } catch (err) {
@@ -181,7 +185,65 @@ const loginUserWithGoogle = async (req, res, next) => {
 };
 
 
+// generate forgot password token
+const forgotPasswordToken = async(req,res,next)=>{
+    const {email} = req.body
+    const user = await User.findOne({email})
+    if(!user) return res.json({message:'user not found with this email'})
+    try{
+        const token = await user.createPasswordResetToken();
+        // we use this to save the -passwordResetExpires- and -passwordResetToken-
+        await user.save()
+        
+        const resetURL = `Please follow this link to reset your password. <br> This link is valid 10 minutes from now <br> 
+        <a href='http://localhost:3000/api/user/reset-password/${token}'> Click here </a> <br> 
+        Don't forget you have just one time to change the password by day `
+        const data = {
+            to : email,
+            text : 'Hey User',
+            from : '<ecommerceShop1900gmail.com>',
+            subject : ' Forgot password link ',
+            htm : resetURL
+        }
+        sendEmail(data)
+        res.json({
+            success: true,
+            message: "Verification email sent successfully"
+        })
+    }catch(err) {next(err) }
+}
 
+// reset password
+const resetPassword = async (req,res)=>{
+    const {token} = req.params
+    const {password} = req.body
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
+    const user = await User.findOne({
+        passwordResetToken:hashedToken,
+        // --gt-- mean that the time we chose for the token to expire is greater than  the time now 
+        passwordResetExpires: {$gt:Date.now()},
+        passwordChangedAt: { $lt: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+    })
+    if(!user){
+        return res.json('Token expired , or your dapassed the limited chanse offred for you to change the password , Please try tomorow')
+    }    
+    user.password = password
+    user.passwordResetToken = undefined
+    user.passwordResetExpires = undefined
+    user.passwordChangedAt = Date.now()
+    // Format date to a user-friendly string
+    const formattedPasswordChangedAt = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    }).format(user.passwordChangedAt);
+
+    await user.save()
+    res.json(user)
+}
 
 const logoutUser = async (req, res, next) => {
   try {
@@ -197,4 +259,4 @@ const logoutUser = async (req, res, next) => {
 
 
 
-export default {createUser,loginUser,createUserWithGoogle,loginUserWithGoogle,logoutUser}
+export default {createUser,loginUser,forgotPasswordToken,resetPassword,createUserWithGoogle,loginUserWithGoogle,logoutUser}
