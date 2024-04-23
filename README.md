@@ -295,6 +295,8 @@ example :
 GET /api/freelencer/get 'require auth'
 ```
 
+
+
 ## Chat
 
 #### Get all messages

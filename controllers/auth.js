@@ -51,6 +51,7 @@ const createUser = async(req,res,next) =>{
             httpOnly:true,
             secure:true,
             maxAge: 72 * 60 * 60 * 1000, // Three days
+            domain: 'localhost'
         });
         
         res.json({
@@ -98,6 +99,7 @@ const loginUser = async (req, res, next) => {
             httpOnly:true,
             secure:true,
             maxAge: 72 * 60 * 60 * 1000, // Three days
+            domain: 'localhost'
         });
 
         res.json({
@@ -133,6 +135,7 @@ const createUserWithGoogle = async (req, res,next) =>{
             httpOnly:true,
             secure:true,
             maxAge: 72 * 60 * 60 * 1000, // Three days
+            domain: 'localhost'
         });
         
         res.json({
@@ -163,6 +166,7 @@ const loginUserWithGoogle = async (req, res, next) => {
             httpOnly:true,
             secure:true,
             maxAge: 72 * 60 * 60 * 1000, // Three days
+            domain: 'localhost'
         });
         
         res.json({
