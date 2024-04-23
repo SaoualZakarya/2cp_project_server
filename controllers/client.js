@@ -114,7 +114,7 @@ const acceptFreelancerInProject = async (req, res, next) => {
                 "reserved.user": userId // Match the project ID and user ID in the reserved array
             },
             { 
-                $set: { "reserved.$.status": "accepted" } // Update the status of the matched user
+                $set: { "acceptedFreelencer": userId }
             },
             { new: true }
         );
@@ -147,7 +147,7 @@ const canceledFreelancerInProject = async (req, res, next) => {
         if (!updatedProject) {
             return res.status(404).json({ message: "Project or user not found", success: false });
         }
-        res.json({ message: "Freelancer accepted successfully in the project", success: true });
+        res.json({ message: "Freelancer canceled successfully from the project", success: true });
     } catch (error) {
         next(error);
     }

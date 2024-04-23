@@ -338,7 +338,25 @@ example :
 GET /api/freelencer/get 'require auth'
 ```
 
+#### Apply for project
 
+```http
+PUT /apply/:id 'require auth'
+```
+    The id of the project here in the params of the request
+
+
+#### Get the project accepted
+
+```http
+GET /get/projects/accepted 'require auth'
+```
+
+#### Get the project canceled
+
+```http
+GET /get/projects/canceled 'require auth'
+```
 
 ## Chat
 
@@ -466,22 +484,41 @@ PUT /api/client/project/status/:id 'require auth'
 #### Accept freelencer in project
 
 ```http
-PUT /api/client/project/ 'require auth'
+PUT /api/client/project/participants/accept/:id 'require auth'
 ```
+
+    Here the id in the params represents the project id
 
 | Parameter      | Type     |
 | :------------- | :------- |
-| `status`       | `string` |
+| `userID`       | `string` |
+
+example :
+
+    {
+        "userId":"6621482abe275abc9c8932b7"
+    }
+
 
 #### Canceled freelencer from project
 
 ```http
-PUT /api/client/project/ 'require auth'
+PUT /api/client/project/participants/refuse/:id 'require auth'
 ```
+
+    Here the id in the params represents the project id
 
 | Parameter      | Type     |
 | :------------- | :------- |
-| `status`       | `string` |
+| `userID`       | `string` |
+
+example :
+
+    {
+        "userId":"6621482abe275abc9c8932b7"
+    }
+
+
 
 #### Switch the account into freelencer
 

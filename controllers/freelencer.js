@@ -43,7 +43,7 @@ const getFreelencer = async (req, res, next) => {
 }
 
 const applyProject = async (req, res, next) => {
-    let projectId=req.params.id
+    let projectId = req.params.id
     let userId=req.user._id
     try {
         const project = await Project.findById(projectId)
@@ -67,12 +67,7 @@ const getProjectsAccepted = async (req,res,next) => {
     const userId = req.user._id
     try {
         const projects = await Project.find({
-            reserved: {
-                $elemMatch: {
-                    user: userId,
-                    status: 'accepted'
-                }
-            }
+            acceptedFreelencer:userId
         });
         res.json({success:true,projects})
     } catch (error) {
@@ -90,7 +85,8 @@ const getProjectsCanceled = async (req,res,next) => {
                     status: 'refused'
                 }
             }
-        });
+        }).select('_id title description status amount')
+        .populate('user', '_id firstName lastName email');
         res.json({success:true,projects})
     } catch (error) {
         next(error)

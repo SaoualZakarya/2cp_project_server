@@ -31,7 +31,7 @@ var projectSchema = new mongoose.Schema({
             status:{
                 type:String,
                 default:'Pending',
-                enum:['pending','accepted','refused']
+                enum:['pending','refused']
             }
         }
     ],

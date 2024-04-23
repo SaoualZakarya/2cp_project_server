@@ -32,7 +32,7 @@ const serviceSchema = new mongoose.Schema({
     ],
     freelancer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Freelancer'
+        ref: 'User'
     }
 }, {
     timestamps: true
