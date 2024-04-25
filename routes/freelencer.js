@@ -23,6 +23,9 @@ router.get('/get/projects/accepted',authMiddleware,isBlocked,isVerified,isFreele
 router.get('/get/projects/canceled',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsCanceled)
 //get all existed project with filters and query params
 router.get('/get/projects/exists',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsExists)
+//get single project
+router.get('/get/project/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getSingleProject)
+
 
 // switch role into user 
 router.put('/client',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)

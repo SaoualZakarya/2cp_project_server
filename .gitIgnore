@@ -1,6 +1,5 @@
 # Ignore .env file
 .env
-still.txt
 
 # Ignore node_modules directory
 node_modules/

@@ -23,7 +23,7 @@ import chatRouter from './routes/chat.js'
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
-const HOST = "127.0.0.1"
+const HOST = "localhost"
 dbConnect()
 
 // Middleware to log requests
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 // middlewares
-app.use(cors({credentials: true, origin: '*'}))
+app.use(cors({credentials: true, origin: 'localhost'}))
 app.use(express.json({limit: '100mb'}))
 app.use(express.urlencoded({limit: '100mb', extended: false}))
 app.use(cookieParser())

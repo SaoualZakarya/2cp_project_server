@@ -76,6 +76,16 @@ const getProjectsAccepted = async (req,res,next) => {
     }
 }
 
+const getSingleProject = async (req,res,next) => {
+    const {id} = req.params
+    try {
+        const project = await Project.findById(id).select('-reserved -acceptedFreelencer').populate('user','firstName lastName email')
+        res.json({success:true,project})
+    } catch (error) {
+        next(error)
+    }
+}
+
 const getProjectsCanceled = async (req,res,next) => {
     const userId = req.user._id
     try {
@@ -161,33 +171,41 @@ const createService = async (req,res,next) => {
             service,
             description,
             price,
-            freelancer:id,
+            freelancer: id,
         })
-        res.json({success:true,data:newService,message:"Service created successfully"})
+
+        const selectedService = await Service.findById(newService._id).select('service description price');
+
+        res.json({success:true,data:selectedService,message:"Service created successfully"})
     } catch (error) {
         next(error)
     }
 }
 
 const updateService = async (req,res,next) => {
-    const serviceId = req.params
+    const {id} = req.params
     const {service,description,price} = req.body
     try {
-        const updatedService = await Service.findByIdAndUpdate(serviceId,{
+        const updatedService = await Service.findByIdAndUpdate(id,{
             service,
             description,
             price,
         },{new:true})
-        res.json({success:true,data:updatedService,message:"Service updated successfully "})
+        res.json({success:true,message:"Service updated successfully "})
     } catch (error) {
         next(error)
     }
 }
 
 const getService = async (req,res,next) => {
-    const serviceId = req.params
+    const {id:serviceId} = req.params
+    const id = req.user._id
     try {
-        const theService = await Service.findById(serviceId)
+        const theService = await Service.findOne({_id:serviceId,freelancer:id})
+        .populate({
+            path: 'enroledUsers',
+            populate: { path: 'user', select: 'firstName lastName email' }
+        });
         if(!theService){
             res.status(404).json({success:false,message:"Service not found"})
         }
@@ -223,5 +241,5 @@ export default {
     updateService,deleteService,
     getService,getAllFreelencerServices,
     getProjectsAccepted,getProjectsCanceled,
-    getProjectsExists
+    getProjectsExists,getSingleProject
 }

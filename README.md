@@ -364,11 +364,69 @@ GET /get/projects/canceled 'require auth'
 GET /api/freelencer/get/projects/exists 'require auth'
 ```
 
+#### Get single project
+
+```http
+GET /api/freelencer/project/:id 'require auth'
+```
+
+    id represents the project id
+
+
 #### Switch account into user
 
 ```http
 PUT /api/freelencer/client 'require auth'
 ```
+
+#### create service
+
+```http
+POST /api/freelencer/create/service 'require auth'
+```
+
+| Parameter      | Type                |
+| :------------- | :------------------ |
+| `description ` | `string`            |
+| `service`      | `string`            |
+| `price`        | `string` | `number` |
+
+example :
+
+    {
+        "service":"logo design","description":"full stack design","price":120
+    }
+
+
+#### update service
+
+```http
+POST /api/freelencer/update/service/:id  'require auth'
+```
+
+    Here the id is the service id
+
+| Parameter      | Type                |
+| :------------- | :------------------ |
+| `description ` | `string`            |
+| `service`      | `string`            |
+| `price`        | `string` | `number` |
+
+example :
+
+    {
+        "service":"logo design","description":"full stack design","price":120
+    }
+
+#### Get service for freelencer
+
+```http
+POST /api/freelencer/get/service/:id  'require auth'
+```
+
+    id represent the service id
+
+
 
 
 

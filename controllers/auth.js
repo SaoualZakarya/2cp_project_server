@@ -93,7 +93,7 @@ const loginUser = async (req, res, next) => {
         const isPasswordMatched = await user.isPasswordMatched(password);
 
         if (!isPasswordMatched) {
-            return res.json({ "Message": "Invalid password", "Success": false });
+            return res.json({ Message: "Invalid password", Success: false });
         }
 
         const token = await generateToken(user._id);    

@@ -30,6 +30,10 @@ const serviceSchema = new mongoose.Schema({
             }
         }
     ],
+    numEnroled:{
+        type: Number,
+        default: 0
+    },
     freelancer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
