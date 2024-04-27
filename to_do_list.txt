@@ -15,7 +15,6 @@ Notification system
  
     the chat 
     the service 
-    the project 
 
 Update the class diagramme for the last time 
 

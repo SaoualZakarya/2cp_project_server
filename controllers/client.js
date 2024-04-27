@@ -140,7 +140,7 @@ const acceptFreelancerInProject = async (req, res, next) => {
         const notification = await Notification.create({
             message : ` Your application for the ${project.title} has been accepted  `,
             user : userId,
-            purpose:project
+            purpose:'project'
         })
 
         if (!updatedProject) {

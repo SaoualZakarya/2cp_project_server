@@ -2,6 +2,7 @@ import Project from '../models/project.js'
 import User from '../models/user.js'
 import Service from '../models/freelencerService.js'
 import { cloudinaryRemoveImg } from '../utils/cloudinary.js'
+import Notification from '../models/notification.js'
 
 const createFreelencer = async (req,res,next) => {
     const id = req.user._id
@@ -157,6 +158,13 @@ const switchIntoUser = async (req,res,next) => {
             certificate:[],
             experience:[]
         },{new:true})
+
+        const notification = await Notification.create({
+            message : ` You role has been switched successfully into client`,
+            user : id,
+            purpose:'general'
+        })
+
         res.json({data:user,message:"You are now a user ",success:true})
     } catch (error) {
         next(error)
@@ -264,6 +272,13 @@ const accepteUserOnService =  async (req,res,next) => {
         if (!updatedService) {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
+
+        const notification = await Notification.create({
+            message : ` Your application for the ${updatedService.service} has been accepted  `,
+            user : userId,
+            purpose:'service'
+        })
+
         res.json({ message: "Client added successfully to you list of clients ", success: true });
     } catch (error) {
         next(error);
@@ -299,6 +314,13 @@ const refuseUserFromService =  async (req,res,next) => {
         if (!updatedService) {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
+
+        const notification = await Notification.create({
+            message : ` Your application for the ${updatedService.service} has been canceled  `,
+            user : userId,
+            purpose:'service'
+        })
+
         res.json({ message: "Client added successfully to you list of clients ", success: true });
     } catch (error) {
         next(error);
