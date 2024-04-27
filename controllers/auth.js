@@ -63,7 +63,8 @@ const createUser = async(req,res,next) =>{
             firstName: user.firstName,
             lastName: user.lastName,
             mobile:user.mobile,
-            verified:user.verified
+            verified:user.verified,
+            role:user.role
         });
 
     }catch(err){
@@ -112,7 +113,8 @@ const loginUser = async (req, res, next) => {
             firstName: user.firstName,
             lastName: user.lastName,
             mobile:user.mobile,
-            verified:user.verified
+            verified:user.verified,
+            role:user.role
         });
 
     } catch (err) {
