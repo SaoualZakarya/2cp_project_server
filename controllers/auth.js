@@ -2,7 +2,7 @@ import User from '../models/user.js'
 import { generateToken } from '../utils/token.js'
 import crypto from 'crypto'
 import sendEmail from './sendEmail.js';
-
+import jwt from 'jsonwebtoken'
 
 // Regular expressions for email and password
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
@@ -245,6 +245,25 @@ const resetPassword = async (req,res)=>{
     res.json(user)
 }
 
+
+const checkLogin = async (req, res, next) => {
+    let token = req.cookies.token;
+    try {
+        if(!token) {
+            res.json({message:"there is no token",success:false})
+        }
+        // verify the token 
+        const decoded = await jwt.verify(token,process.env.SECRET_JWT)
+        if (!decoded){
+            res.json({message:"Invalide token",success:false})
+        }
+        res.json({message:"Your token has been verified succefully",success:true})
+    } catch (err) {
+      next(err);
+    }
+  };
+
+
 const logoutUser = async (req, res, next) => {
   try {
     res.clearCookie('token',  {
@@ -259,4 +278,4 @@ const logoutUser = async (req, res, next) => {
 
 
 
-export default {createUser,loginUser,forgotPasswordToken,resetPassword,createUserWithGoogle,loginUserWithGoogle,logoutUser}
+export default {createUser,loginUser,checkLogin,forgotPasswordToken,resetPassword,createUserWithGoogle,loginUserWithGoogle,logoutUser}

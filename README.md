@@ -105,66 +105,31 @@ example :
 
     will be added soon ...
 
-#### verify user account 
-
-
-
-#### logout user
-
-```http
-GET /api/auth/logout
-```
+### verify user account 
 
 #### send vefication email for user
 
 This will allows you to send vefication email to the user account 
 when the user click in it , his account will be verified succefully
+with another api call 
 
 ```http
 POST /api/user/send-verification-email  'require auth'
 ```
 
-### Forgot password
-
-
-#### Forgot password token
-
-    Will be sent via email to the user account
+### logout user
 
 ```http
-POST /api/auth/forgot-password-token
+GET /api/auth/logout
 ```
 
-| Parameter   | Type     |
-| :---------- | :------- |
-| `email`     | `string` |
+### check user token
 
-example :
-
-    {
-        "email":"gptchat702@gmail.com"
-    }
-
-#### Reset  Password with forgot password token
-
-    Will be sent via email to the user account
+    The token will be sent via the cookie so you don't need to add in it
 
 ```http
-PUT /api/auth/reset-password/:token
+GET /api/auth/check-login
 ```
-
-    Here after he clicks the link on his email he will got this link to the
-        front-end page when he can update his password
-
-| Parameter   | Type     |
-| :---------- | :------- |
-| `password`  | `string` |
-
-example :
-
-    {
-        "password":"Za@#_+s@#12ka123ASqw"
-    }
 
 
 ## Profile
@@ -248,6 +213,49 @@ GET /api/user/get/credit-card   'require auth'
 ```http
 DELETE /api/user/delete/credit-card/:id   'require auth'
 ``` 
+
+
+### Forgot password
+
+#### Forgot password token
+
+    Will be sent via email to the user account
+
+```http
+POST /api/auth/forgot-password-token
+```
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `email`     | `string` |
+
+example :
+
+    {
+        "email":"gptchat702@gmail.com"
+    }
+
+#### Reset  Password with forgot password token
+
+    Will be sent via email to the user account
+
+```http
+PUT /api/auth/reset-password/:token
+```
+
+    Here after he clicks the link on his email he will got this link to the
+        front-end page when he can update his password
+
+| Parameter   | Type     |
+| :---------- | :------- |
+| `password`  | `string` |
+
+example :
+
+    {
+        "password":"Za@#_+s@#12ka123ASqw"
+    }
+
 
 ## Upload
 

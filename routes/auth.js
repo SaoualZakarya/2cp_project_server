@@ -18,6 +18,9 @@ authRouter.post('/forgot-password-token',auth.forgotPasswordToken)
 //reset password 
 authRouter.put('/reset-password/:token',auth.resetPassword)
 
+// check login
+authRouter.get('/check-login',auth.checkLogin)
+
 // logout 
 authRouter.get('/logout',auth.logoutUser)
 

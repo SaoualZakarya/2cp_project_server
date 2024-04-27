@@ -16,7 +16,10 @@ For the client I still have to do
     add the payment on the project
     add timing to the project - when freelencer is accpted the time begin - 
 
-Enquiry 
+Enquiry add from the eccommerce store
+
+
+Notification system for the chat and also for the service , project acceptence , refuse
 
 
 
