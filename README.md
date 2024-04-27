@@ -426,16 +426,64 @@ example :
         "service":"logo design","description":"full stack design","price":120
     }
 
+#### accept user on service
+
+```http
+PUT /api/freelencer/service/accept/:id  'require auth'
+```
+
+    Here the id is the service id
+
+| Parameter      | Type                |
+| :------------- | :------------------ |
+| `user `        | `string`            |
+
+    Here the user is the user id that we wanna accept on the service
+
+example :
+
+    {
+        "user":"662146a6be275abc9c8932ae"
+    }
+
+
+
+
+
+
+#### refuse user from service
+
+```http
+PUT /api/freelencer/service/refuse/:id  'require auth'
+```
+
+    Here the id is the service id
+
+| Parameter      | Type                |
+| :------------- | :------------------ |
+| `user `        | `string`            |
+
+    Here the user is the user id that we wanna accept on the service
+
+example :
+
+    {
+        "user":"662146a6be275abc9c8932ae"
+    }
+
 #### Get service for freelencer
 
 ```http
-POST /api/freelencer/get/service/:id  'require auth'
+GET /api/freelencer/get/service/:id  'require auth'
 ```
 
     id represent the service id
 
+#### Get all the created services for that freelencer 
 
-
+```http
+GET /api/freelencer/get/services/all  'require auth'
+```
 
 
 ## Chat
@@ -646,7 +694,14 @@ GET /api/client/services/accepted 'require auth'
 GET /api/client/services/refused 'require auth'
 ```
 
-#### get all
+
+## Notification
+
+#### Get all notifications 
+
+```http
+GET /api/notification 'require auth'
+```
 
 
 ## Last

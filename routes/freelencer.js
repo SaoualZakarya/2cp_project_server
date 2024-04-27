@@ -40,5 +40,11 @@ router.delete('/delete/service/:id',authMiddleware,isBlocked,isVerified,isFreele
 router.get('/get/services/all',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getAllFreelencerServices)
 // get Service 
 router.get('/get/service/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getService)
+// Accept user on service 
+router.put('/service/accept/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.accepteUserOnService)
+// Canceled user from service 
+router.put('/service/refuse/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.refuseUserFromService)
+
+
 
 export default router ;

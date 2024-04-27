@@ -37,15 +37,20 @@ const updateProject = async (req,res,next) =>{
     }
 } 
 
-const getUserProjects = async (req,res,next) =>{
+const getUserProjects = async (req, res, next) => {
+    const userId = req.user._id;
+    console.log(userId)
     try {
-        const userProjects = await Project.find({user:req.user._id})
-        res.json(userProjects)
+        const projects = await Project.find({ user: userId })
+        .select('-acceptedFreelencer -reserved -user')
+        if (projects.length === 0) { 
+            return res.status(404).json({ success: false, message: "No projects found" });
+        }
+        res.json({ success: true, data: projects });
     } catch (error) {
         next(error);
     }
-    
-}
+};
 
 const getSingleUserProject = async (req, res, next) => {
     // Represent the project id
@@ -54,7 +59,11 @@ const getSingleUserProject = async (req, res, next) => {
 
     try {
         const userProject = await Project.findOne({ _id: id, user: userId })
-            .populate('reserved.user');
+            .populate({
+                path:'reserved.user',
+                select:'firstName lastName email'
+            })
+            .select('-user');
 
         if (userProject) {
             res.json(userProject);
@@ -107,7 +116,15 @@ const updateProjectStatus = async (req, res, next) => {
 const acceptFreelancerInProject = async (req, res, next) => {
     const projectId = req.params.id;
     const userId = req.body.userId;
+    const creatorId = req.user._id;
     try {
+
+        const project = await Project.findOne({ _id: projectId, user: creatorId });
+
+        if (!project) {
+            return res.status(403).json({ message: "You are not authorized to perform this action", success: false });
+        }
+        
         let updatedProject = await Project.findOneAndUpdate(
             { 
                 _id: projectId, 
@@ -132,7 +149,15 @@ const acceptFreelancerInProject = async (req, res, next) => {
 const canceledFreelancerInProject = async (req, res, next) => {
     const projectId = req.params.id;
     const userId = req.body.userId;
+    const creatorId = req.user._id;
     try {
+
+        const project = await Project.findOne({ _id: projectId, user: creatorId });
+
+        if (!project) {
+            return res.status(403).json({ message: "You are not authorized to perform this action", success: false });
+        }
+
         let updatedProject = await Project.findOneAndUpdate(
             { 
                 _id: projectId, 

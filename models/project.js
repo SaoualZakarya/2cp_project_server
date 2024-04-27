@@ -41,11 +41,11 @@ var projectSchema = new mongoose.Schema({
     },
     acceptedFreelencer :{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
     },
 },{
     timestamps:true
 });
 
-//Export the model
+// Export the model
 export default mongoose.model('Project', projectSchema);

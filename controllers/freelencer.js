@@ -205,7 +205,8 @@ const getService = async (req,res,next) => {
         .populate({
             path: 'enroledUsers',
             populate: { path: 'user', select: 'firstName lastName email' }
-        });
+        })
+        .select('-freelancer')
         if(!theService){
             res.status(404).json({success:false,message:"Service not found"})
         }
@@ -228,10 +229,79 @@ const deleteService = async (req,res,next) => {
 const getAllFreelencerServices =  async (req,res,next) => {
     const id = req.user._id
     try {
-        const freelancerServices = await Service.find({freelancer:id})
+        const freelancerServices = await Service.find({freelancer:id}).select('-freelancer -enroledUsers')
         res.json({success:true,services: freelancerServices})
     } catch (error) {
         next(error)
+    }
+}
+
+const accepteUserOnService =  async (req,res,next) => {
+    const userId = req.body.user;
+    const serviceId = req.params.id
+    const creatorId = req.user._id;
+    try {
+
+        const service = await Service.findOne({ _id: serviceId, freelancer: creatorId });
+
+        if (!service) {
+            return res.status(403).json({ message: "You are not authorized to perform this action", success: false });
+        }
+        
+        let updatedService = await Service.findOneAndUpdate(
+            { 
+                _id: serviceId, 
+                "enroledUsers.user": userId 
+            },
+            { 
+                $set: { 
+                    "enroledUsers.$.status": "accepted", 
+                }
+            },
+            { new: true }
+        );
+
+        if (!updatedService) {
+            return res.status(404).json({ message: "Service or user not found", success: false });
+        }
+        res.json({ message: "Client added successfully to you list of clients ", success: true });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const refuseUserFromService =  async (req,res,next) => {
+    const userId = req.body.user;
+    const serviceId = req.params.id
+    const creatorId = req.user._id;
+    try {
+
+        const service = await Service.findOne({ _id: serviceId, freelancer: creatorId });
+
+        if (!service) {
+            return res.status(403).json({ message: "You are not authorized to perform this action", success: false });
+        }
+        
+        let updatedService = await Service.findOneAndUpdate(
+            { 
+                _id: serviceId, 
+                "enroledUsers.user": userId 
+            },
+            { 
+                $set: { 
+                    "enroledUsers.$.status": "canceled", 
+                }
+            },
+            { new: true }
+        );
+
+        if (!updatedService) {
+            return res.status(404).json({ message: "Service or user not found", success: false });
+        }
+        res.json({ message: "Client added successfully to you list of clients ", success: true });
+    } catch (error) {
+        next(error);
     }
 }
 
@@ -241,5 +311,6 @@ export default {
     updateService,deleteService,
     getService,getAllFreelencerServices,
     getProjectsAccepted,getProjectsCanceled,
-    getProjectsExists,getSingleProject
+    getProjectsExists,getSingleProject,
+    accepteUserOnService,refuseUserFromService
 }

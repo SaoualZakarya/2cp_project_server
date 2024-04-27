@@ -1,59 +1,69 @@
-import jwt from 'jsonwebtoken'
-import User from '../models/user.js'
+import jwt from 'jsonwebtoken';
+import User from '../models/user.js';
 
-// we use authMiddleWare to make sure the user login 
-const authMiddleware = async(req,res,next)=>{
+const authMiddleware = async (req, res, next) => {
     let token = req.cookies.token;
-    try{
-        if(!token) {
-            res.json({message:"there is no token",success:false})
+    try {
+        if (!token) {
+            res.json({ message: "There is no token", success: false });
         }
-        // verify the token 
-        const decoded = await jwt.verify(token,process.env.SECRET_JWT)
-        if (!decoded){
-            res.json({message:"Invalide token",success:false})
+        const decoded = await jwt.verify(token, process.env.SECRET_JWT);
+        if (!decoded) {
+            res.json({ message: "Invalid token", success: false });
         }
-        // get the user
-        const user = await User.findById(decoded.id)
-        req.user = user
-        next()
-    }catch(err){
+        const user = await User.findById(decoded.id);
+        req.user = user;
+        next();
+    } catch (err) {
         next(err);
     }
-}
+};
 
-const isAdmin = async (req,res,next)=>{
-    let user = req.user
-    if (!user.role === 'admin'){
-        res.json("You are not admin")
+const isAdmin = async (req, res, next) => {
+    let user = req.user;
+    if (!user.role === 'admin') {
+        res.json({ message: "You are not admin", success: false });
     }
-    next()
-}
+    next();
+};
 
-const isFreelencer = async (req,res,next)=>{
-    let user = req.user
-    if (!user.role === 'freelencer'){
-        res.json("You are not freelencer")
+const isFreelencer = async (req, res, next) => {
+    let user = req.user;
+    if (!user.role === 'freelencer') {
+        res.json({ message: "You are not freelancer", success: false });
     }
-    next()
-}
+    next();
+};
 
-const isBlocked = async (req,res,next)=>{
-    const user = req.user
-    if(user.blocked){
-        res.status(403).json({success:false,message:"Your account has been blocked"})
+const isClient = async (req, res, next) => {
+    let user = req.user;
+    if (!user.role === 'user') {
+        res.json({ message: "You are not client", success: false });
     }
-    next()
-}
+    next();
+};
 
-const isVerified = async (req,res,next)=>{
-    const user = req.user
-    if(!user.verified){
-        res.status(403).json({success:false,message:"You should verify your account"})
+const isBlocked = async (req, res, next) => {
+    const user = req.user;
+    if (user.blocked) {
+        res.status(403).json({ success: false, message: "Your account has been blocked" });
     }
-    next()
-}
+    next();
+};
 
+const isVerified = async (req, res, next) => {
+    const user = req.user;
+    if (!user.verified) {
+        res.status(403).json({ success: false, message: "You should verify your account" });
+    }
+    next();
+};
 
-
-export {authMiddleware,isFreelencer,isAdmin,isVerified,isBlocked}
+export {
+    authMiddleware,
+    isFreelencer,
+    isAdmin,
+    isVerified,
+    isBlocked,
+    isClient
+};

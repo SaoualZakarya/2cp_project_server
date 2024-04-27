@@ -1,7 +1,5 @@
 For the freelencer I still have to do 
 
-    accept user on service 
-    refuse user from service 
     add the payment  
 
 
@@ -12,8 +10,11 @@ For the client I still have to do
 Enquiry add from the eccommerce store
 
 
-Notification system for the chat and also for the service , project acceptence , refuse
-
+Notification system 
+ the chat 
+ the service 
+ the project 
+ Update check status on notification 
 
 
 
