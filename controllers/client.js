@@ -1,7 +1,7 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
 import Service from '../models/freelencerService.js'
-import Notification from '../models/notification.js'
+import createNotification from '../utils/notifcation.js'
 
 // const getClient = async (req,res,next) => {
 //     const {id} = req.params
@@ -137,11 +137,8 @@ const acceptFreelancerInProject = async (req, res, next) => {
             { new: true }
         );
 
-        const notification = await Notification.create({
-            message : ` Your application for the ${project.title} has been accepted  `,
-            user : userId,
-            purpose:'project'
-        })
+        let  msg = ` Your application for the ${project.title} has been accepted  `;
+        createNotification(msg,userId,'project') ;
 
         if (!updatedProject) {
             return res.status(404).json({ message: "Project or user not found", success: false });
@@ -176,11 +173,8 @@ const canceledFreelancerInProject = async (req, res, next) => {
             { new: true }
         );
 
-        const notification = await Notification.create({
-            message : ` Your application for the ${project.title} has been refused  `,
-            user : userId,
-            purpose:'project'
-        })
+        let  msg = ` Your application for the ${project.title} has been refused  `;
+        createNotification(msg,userId,'project') ;
 
         if (!updatedProject) {
             return res.status(404).json({ message: "Project or user not found", success: false });

@@ -1,5 +1,5 @@
 import User from '../models/user.js'
-import Notification from '../models/notification.js';
+import createNotification from '../utils/notifcation.js';
 
 //get all users
 const getUsers = async (req,res,next) =>{
@@ -32,10 +32,7 @@ const blockUser = async (req,res,next) =>{
             new:true
         })
 
-        const notification = await Notification.create({
-            message : 'Your account has been blocked by the administrator',
-            user : user._id
-        })
+        createNotification('Your account has been blocked by the administrator',user._id,'admin')
 
         res.json({success:true,message:"User blocked successfully"})
     }catch(err){
@@ -53,10 +50,7 @@ const deBlockUser = async (req,res,next) =>{
             new:true
         })
 
-        const notification = await Notification.create({
-            message : 'Your account is finaly deblocked',
-            user : user._id
-        })
+        createNotification('Your account is finaly deblocked',user._id,'admin')
 
         res.json({success:true,message:"User deblocked successfully"})
     }catch(err){

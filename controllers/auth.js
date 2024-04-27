@@ -1,10 +1,10 @@
 import User from '../models/user.js'
-import Notifcation from '../models/notification.js'
 import { generateToken } from '../utils/token.js'
 import crypto from 'crypto'
 import sendEmail from './sendEmail.js';
 import jwt from 'jsonwebtoken'
 import useragent from 'useragent';
+import createNotification from '../utils/notifcation.js';
 
 
 // Regular expressions for email and password
@@ -106,11 +106,10 @@ const loginUser = async (req, res, next) => {
 
         const userAgentString = req.headers['user-agent'];
         const agent = useragent.parse(userAgentString);
-        const notification = await Notifcation.create({
-            message : `Logged in from ${agent.device.toString()} using ${agent.toAgent()}`,
-            user : user._id,
-            purpose:'auth'
-        })
+        
+        let msg = `Logged in from ${agent.device.toString()} using ${agent.toAgent()}`
+
+        createNotification(msg,user._id,'auth')
 
         res.cookie('token', token, {
             httpOnly:true,

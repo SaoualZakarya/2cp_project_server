@@ -2,7 +2,7 @@ import Project from '../models/project.js'
 import User from '../models/user.js'
 import Service from '../models/freelencerService.js'
 import { cloudinaryRemoveImg } from '../utils/cloudinary.js'
-import Notification from '../models/notification.js'
+import createNotification from '../utils/notifcation.js'
 
 const createFreelencer = async (req,res,next) => {
     const id = req.user._id
@@ -273,11 +273,9 @@ const accepteUserOnService =  async (req,res,next) => {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
 
-        const notification = await Notification.create({
-            message : ` Your application for the ${updatedService.service} has been accepted  `,
-            user : userId,
-            purpose:'service'
-        })
+        let  msg = ` Your application for the ${updatedService.service} has been accepted  `;
+            
+        createNotification(msg,userId,'service') ; 
 
         res.json({ message: "Client added successfully to you list of clients ", success: true });
     } catch (error) {
@@ -315,11 +313,9 @@ const refuseUserFromService =  async (req,res,next) => {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
 
-        const notification = await Notification.create({
-            message : ` Your application for the ${updatedService.service} has been canceled  `,
-            user : userId,
-            purpose:'service'
-        })
+        let  msg = ` Your application for the ${updatedService.service} has been canceled  `;
+            
+        createNotification(msg,userId,'service') ;
 
         res.json({ message: "Client added successfully to you list of clients ", success: true });
     } catch (error) {
