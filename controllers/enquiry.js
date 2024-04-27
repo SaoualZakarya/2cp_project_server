@@ -1,5 +1,7 @@
 import Enquiry from '../models/enquiry.js'
 import validateMongoDbId from '../utils/validate_mongodb_id.js';
+import Notification from '../models/notification.js';
+import User from '../models/user.js';
 
 // create Enquiry
 const createEnquiry = async (req,res,next)=>{
@@ -18,6 +20,15 @@ const createEnquiry = async (req,res,next)=>{
             comment,
             email
         })
+
+        const user = await User.findOne({role:'admin'})
+
+        const notification = await Notification.create({
+            message : ` New enquiry from ${email} ` ,
+            user : user._id,
+            purpose:'enquiry'
+        })
+
         res.json({success:true, message:"Enquiry created succefully"})
     }catch(err) {
         next(err)
