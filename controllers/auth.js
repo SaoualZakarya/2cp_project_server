@@ -1,8 +1,11 @@
 import User from '../models/user.js'
+import Notifcation from '../models/notification.js'
 import { generateToken } from '../utils/token.js'
 import crypto from 'crypto'
 import sendEmail from './sendEmail.js';
 import jwt from 'jsonwebtoken'
+import useragent from 'useragent';
+
 
 // Regular expressions for email and password
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
@@ -97,7 +100,16 @@ const loginUser = async (req, res, next) => {
             return res.json({ Message: "Invalid password", Success: false });
         }
 
-        const token = await generateToken(user._id);    
+        const token = await generateToken(user._id); 
+        
+        // Create the notification of login
+
+        const userAgentString = req.headers['user-agent'];
+        const agent = useragent.parse(userAgentString);
+        const notification = await Notifcation.create({
+            message : `Logged in from ${agent.device.toString()} using ${agent.toAgent()}`,
+            user : user._id
+        })
 
         res.cookie('token', token, {
             httpOnly:true,
