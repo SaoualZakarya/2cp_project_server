@@ -7,14 +7,15 @@ For the client I still have to do
 
     add the payment on the project
 
+
 Enquiry - Notify problem to the admin-
 
 
-Notification system 
+Notification system
+ 
     the chat 
     the service 
     the project 
-    Update check status on notification 
 
 Update the class diagramme for the last time 
 

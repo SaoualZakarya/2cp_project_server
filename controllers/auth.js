@@ -134,9 +134,6 @@ const loginUser = async (req, res, next) => {
     }
 };
 
-
-
-
 const createUserWithGoogle = async (req, res,next) =>{
     try {
         const {googleId,email,userName} = req.body
@@ -171,7 +168,7 @@ const createUserWithGoogle = async (req, res,next) =>{
 
 const loginUserWithGoogle = async (req, res, next) => {
     try {
-        const { email , googleId } = req.body;
+        const { googleId } = req.body;
         const user = await User.findOne({ googleId });
 
         if (!user) {

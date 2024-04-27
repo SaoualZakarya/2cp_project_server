@@ -17,3 +17,12 @@
 [2024-04-27T17:47:16.115Z] ::1 - PUT /api/notification/662d39c1f6e0c3a3ceea55db
 [2024-04-27T17:49:10.708Z] ::1 - PUT /api/notification/662d39c1f6e0c3a3ceea55db
 [2024-04-27T17:49:52.057Z] ::1 - GET /api/notification/all
+[2024-04-27T19:15:17.515Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:16:04.914Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:17:03.365Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:19:18.189Z] ::1 - GET /api/notification/all
+[2024-04-27T19:20:46.891Z] ::1 - GET /api/notification/all
+[2024-04-27T19:20:51.804Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:20:53.378Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:20:54.666Z] ::1 - POST /api/auth/sign-in
+[2024-04-27T19:23:01.028Z] ::1 - POST /api/auth/sign-in

@@ -14,6 +14,11 @@ const notificationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
         required: true
+    },
+    purpose:{
+        type: String,
+        enum:['auth','project','service','enquiry','chat'],
+        default:'auth'
     }
 }, {
     timestamps: true 
