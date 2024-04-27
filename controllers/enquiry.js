@@ -1,8 +1,6 @@
 import Enquiry from '../models/enquiry.js'
 import validateMongoDbId from '../utils/validate_mongodb_id.js';
 
-
-
 // create Enquiry
 const createEnquiry = async (req,res,next)=>{
     const {comment} = req.body
@@ -56,7 +54,7 @@ const deleteEnquiry = async (req,res,next)=>{
     try{
         validateMongoDbId(id)
         const deleteEnquiry = await Enquiry.findByIdAndDelete(id)
-        res.json(deleteEnquiry)
+        res.json({success:true, message:'enquiry deleted successfully'})
     }catch(err) {
         next(err)
     }
@@ -65,11 +63,11 @@ const deleteEnquiry = async (req,res,next)=>{
 // get Enquiry
 const getEnquiry = async (req,res,next)=>{
     const {id} = req.params
-
+    validateMongoDbId(id)
     try{
         validateMongoDbId(id)
-        const getEnquiry = await Enquiry.findById(id)
-        res.json(getEnquiry)
+        const enquiry = await Enquiry.findById(id)
+        res.json({success:true, data:enquiry})
     }catch(err) {
         next(err)
     }
@@ -78,8 +76,8 @@ const getEnquiry = async (req,res,next)=>{
 // get all Enquiry
 const getAllEnquiry = async (req,res,err)=>{
     try{
-        const getAllEnquiry = await Enquiry.find()
-        res.json(getAllEnquiry)
+        const enquiries = await Enquiry.find()
+        res.json({succes:true, data:enquiries})
     }catch(err) {
         next(err)
     }
