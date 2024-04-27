@@ -199,10 +199,84 @@ const getServices = async (req, res, next) => {
     }
 };
 
+const applyForService = async (req, res, next) => {
+    let serviceId = req.params.id
+    let userId=req.user._id
+    try {
+        await Service.findByIdAndUpdate(serviceId, {
+            $push: {
+                enroledUsers: {
+                    user: userId,
+                }
+            },
+            $inc: { numEnroled: 1 }
+        }, {new: true})
+        res.json({success:true,message:"Your applied was done successfully"})
+    }catch(err){
+        next(err)
+    }
+}
+
+const getServiceAccepted = async (req, res, next) => {
+    const userId = req.user._id ;
+
+    try {
+        const services = await Service.find({
+            "enroledUsers": {
+                $elemMatch: { "user": userId, "status": "accepted" }
+            }
+        })
+        .populate({
+            path: 'freelancer',
+            select: 'firstName lastName '
+        })
+        .select('-enroledUsers');
+        res.json({ success: true, services });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getServiceRefused = async (req, res, next) => {
+    const userId = req.user._id ;
+
+    try {
+        const services = await Service.find({
+            "enroledUsers": {
+                $elemMatch: { "user": userId, "status": "canceled" }
+            }
+        })
+        .populate({
+            path: 'freelancer',
+            select: 'firstName lastName '
+        })
+        .select('-enroledUsers');
+        res.json({ success: true, services });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getSingleService = async (req,res,next) =>{
+    const serviceId = req.params.id
+    try{
+        const service = await Service.findById(serviceId)
+        .populate({
+            path: 'freelancer',
+            select: 'firstName lastName '
+        })
+        .select('-enroledUsers');
+        res.json({success:true,data:service})
+    }catch(err){
+        next(err)
+    }
+}
+
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,
-    updateProjectStatus,
+    updateProjectStatus,getServiceRefused,
     acceptFreelancerInProject,canceledFreelancerInProject,
-    switchIntoFreelencer,getServices
+    switchIntoFreelencer,getServices,applyForService,
+    getServiceAccepted,getSingleService
 }

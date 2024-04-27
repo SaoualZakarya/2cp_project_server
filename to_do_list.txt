@@ -2,19 +2,12 @@ For the freelencer I still have to do
 
     accept user on service 
     refuse user from service 
-    add the timing when accepting the client
     add the payment  
 
 
 For the client I still have to do 
 
-    apply for service 
-    get the services where he accepted  and where he is not 
-    get single service
-    testing the filtering in get all services
-    add the timing for the project
     add the payment on the project
-    add timing to the project - when freelencer is accpted the time begin - 
 
 Enquiry add from the eccommerce store
 

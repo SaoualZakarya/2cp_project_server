@@ -625,6 +625,27 @@ Query parameters available :
 *   `maxAmount`: max amount    
 
 
+#### Apply for service
+
+```http
+PUT /api/client/apply/service/:id 'require auth'
+```
+
+    The " id " here represent the service id 
+
+
+#### Get services accepted in 
+
+```http
+GET /api/client/services/accepted 'require auth'
+```
+
+#### Get services refused in 
+
+```http
+GET /api/client/services/refused 'require auth'
+```
+
 #### get all
 
 

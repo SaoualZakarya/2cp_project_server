@@ -25,6 +25,20 @@ router.put('/project/participants/refuse/:id',authMiddleware,isBlocked,isVerifie
 // switch role into freelencer
 router.put('/freelencer',authMiddleware,isBlocked,isVerified,client.switchIntoFreelencer)
 
+
+// service
+
+// apply for service
+router.put('/service/apply/:id',authMiddleware,isBlocked,isVerified,client.applyForService)
+// apply for service
+router.get('/services/accepted',authMiddleware,isBlocked,isVerified,client.getServiceAccepted)
+// apply for service
+router.get('/services/refused',authMiddleware,isBlocked,isVerified,client.getServiceRefused)
+// get single service
+router.get('/service/:id',authMiddleware,isBlocked,isVerified,client.getSingleService)
+
+
+
 // get all services with filters
 router.get('/services',authMiddleware,isBlocked,isVerified,client.getServices)
 
