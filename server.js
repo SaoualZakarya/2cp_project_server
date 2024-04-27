@@ -18,6 +18,7 @@ import userRouter from './routes/user.js'
 import clientRouter from './routes/client.js'
 import freelencerRouter from './routes/freelencer.js'
 import chatRouter from './routes/chat.js'
+import enquiryRouter from './routes/enquiry.js'
 
 // init
 dotenv.config()
@@ -54,6 +55,8 @@ app.use('/api/client',clientRouter)
 app.use('/api/freelencer',freelencerRouter)
 
 app.use('/api/chat',chatRouter)
+
+app.use('/api/enquiry',enquiryRouter)
 
 // error middlewares
 app.use(errorHandler)

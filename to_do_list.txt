@@ -7,15 +7,15 @@ For the client I still have to do
 
     add the payment on the project
 
-Enquiry add from the eccommerce store
+Enquiry - Notify problem to the admin-
 
 
 Notification system 
- the chat 
- the service 
- the project 
- Update check status on notification 
+    the chat 
+    the service 
+    the project 
+    Update check status on notification 
 
-
+Update the class diagramme for the last time 
 
 

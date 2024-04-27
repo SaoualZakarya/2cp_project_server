@@ -703,6 +703,59 @@ GET /api/client/services/refused 'require auth'
 GET /api/notification 'require auth'
 ```
 
+## Enquiry
+
+#### Create Enquiry
+
+```http
+POST /api/enquiry/create 'require auth'
+```
+
+| Parameter | Type     |
+| :-------- | :------- |
+| `comment` | `string` |
+
+Example :
+
+    {
+        "comment": "This is an enquiry comment."
+    }
+
+
+#### Update Enquiry Status
+
+```http
+PUT /api/enquiry/:id 'require auth, admin'
+```
+
+| Parameter | Type     |
+| :-------- | :------- |
+| `status`  | `string` |
+
+Example :
+
+    {
+        "status": "Contacted"
+    }
+
+
+#### Delete Enquiry
+
+```http
+DELETE /api/enquiry/:id 'require auth, admin'
+```
+
+#### Get All Enquiries
+
+```http
+GET /api/enquiry/all 'require auth, admin'
+```
+
+#### Get Single Enquiry
+
+```http
+GET /api/enquiry/:id 'require auth, admin'
+```
 
 ## Last
 
