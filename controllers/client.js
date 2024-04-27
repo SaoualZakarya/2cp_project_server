@@ -1,6 +1,7 @@
 import Project from '../models/project.js'
 import User from '../models/user.js'
 import Service from '../models/freelencerService.js'
+import Notification from '../models/notification.js'
 
 // const getClient = async (req,res,next) => {
 //     const {id} = req.params
@@ -136,6 +137,12 @@ const acceptFreelancerInProject = async (req, res, next) => {
             { new: true }
         );
 
+        const notification = await Notification.create({
+            message : ` Your application for the ${project.title} has been accepted  `,
+            user : userId,
+            purpose:project
+        })
+
         if (!updatedProject) {
             return res.status(404).json({ message: "Project or user not found", success: false });
         }
@@ -169,6 +176,12 @@ const canceledFreelancerInProject = async (req, res, next) => {
             { new: true }
         );
 
+        const notification = await Notification.create({
+            message : ` Your application for the ${project.title} has been refused  `,
+            user : userId,
+            purpose:'project'
+        })
+
         if (!updatedProject) {
             return res.status(404).json({ message: "Project or user not found", success: false });
         }
@@ -185,6 +198,13 @@ const switchIntoFreelencer = async (req,res,next) => {
           await Project.deleteMany({ user: id });
 
           const user = await User.findByIdAndUpdate(id, { role: "freelancer" }, { new: true });
+
+          const notification = await Notification.create({
+            message : ` You role has been switched successfully into freelancer`,
+            user : id,
+            purpose:'general'
+          })
+
         res.json({success:true,data:user,message:"You are now freelancer"})
     } catch (error) {
         next(error)
@@ -236,6 +256,7 @@ const applyForService = async (req, res, next) => {
             },
             $inc: { numEnroled: 1 }
         }, {new: true})
+
         res.json({success:true,message:"Your applied was done successfully"})
     }catch(err){
         next(err)

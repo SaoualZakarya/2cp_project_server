@@ -17,8 +17,8 @@ const notificationSchema = new mongoose.Schema({
     },
     purpose:{
         type: String,
-        enum:['auth','project','service','enquiry','chat'],
-        default:'auth'
+        enum:['auth','project','general','service','enquiry','chat'],
+        default:'general'
     }
 }, {
     timestamps: true 

@@ -108,7 +108,8 @@ const loginUser = async (req, res, next) => {
         const agent = useragent.parse(userAgentString);
         const notification = await Notifcation.create({
             message : `Logged in from ${agent.device.toString()} using ${agent.toAgent()}`,
-            user : user._id
+            user : user._id,
+            purpose:'auth'
         })
 
         res.cookie('token', token, {
