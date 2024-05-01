@@ -79,13 +79,13 @@ var userSchema = new mongoose.Schema({
     ],
     certificate:[
         {
-            link:{
+            url:{
                 type:String,
             },
             asset_id:{
                 type:String,
             },
-            verifiedId:{
+            public_id:{
                 type:String
             }
         }
