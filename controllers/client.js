@@ -1,6 +1,6 @@
-import Project from '../models/project.js'
-import User from '../models/user.js'
-import Service from '../models/freelencerService.js'
+import Project from '../modules/project.js'
+import User from '../modules/user.js'
+import Service from '../modules/freelencerService.js'
 import createNotification from '../utils/notifcation.js'
 
 // const getClient = async (req,res,next) => {

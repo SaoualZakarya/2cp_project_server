@@ -1,6 +1,6 @@
-import Project from '../models/project.js'
-import User from '../models/user.js'
-import Service from '../models/freelencerService.js'
+import Project from '../modules/project.js'
+import User from '../modules/user.js'
+import Service from '../modules/freelencerService.js'
 import { cloudinaryRemoveImg } from '../utils/cloudinary.js'
 import createNotification from '../utils/notifcation.js'
 
@@ -312,8 +312,6 @@ const refuseUserFromService =  async (req,res,next) => {
         if (!updatedService) {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
-
-        let  msg = ` Your application for the ${updatedService.service} has been canceled  `;
             
         createNotification(msg,userId,'service') ;
 

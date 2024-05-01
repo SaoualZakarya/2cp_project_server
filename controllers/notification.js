@@ -1,4 +1,4 @@
-import Notification from '../models/notification.js'
+import Notification from '../modules/notification.js'
 import validateMongoDbId from '../utils/validate_mongodb_id.js';
 
 

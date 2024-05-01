@@ -1,5 +1,5 @@
-import Message from '../models/message.js'
-import Conversation from '../models/conversation.js'
+import Message from '../modules/message.js'
+import Conversation from '../modules/conversation.js'
 import validateMongoDbId from '../utils/validate_mongodb_id.js';
 
 

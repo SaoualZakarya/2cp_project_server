@@ -1,6 +1,6 @@
-import Enquiry from '../models/enquiry.js'
+import Enquiry from '../modules/enquiry.js'
 import validateMongoDbId from '../utils/validate_mongodb_id.js';
-import User from '../models/user.js';
+import User from '../modules/user.js';
 import createNotification from '../utils/notifcation.js';
 
 // create Enquiry

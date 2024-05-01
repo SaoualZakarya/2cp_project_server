@@ -1,5 +1,5 @@
-import User from '../models/user.js'
-import Card from '../models/creditCard.js'
+import User from '../modules/user.js'
+import Card from '../modules/creditCard.js'
 import generateUniqueToken from '../utils/generateUniqueToken.js'
 import sendEmail from './sendEmail.js'
 

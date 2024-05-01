@@ -1,4 +1,4 @@
-import User from '../models/user.js'
+import User from '../modules/user.js'
 import createNotification from '../utils/notifcation.js';
 
 //get all users

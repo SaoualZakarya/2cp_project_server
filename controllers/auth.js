@@ -1,4 +1,4 @@
-import User from '../models/user.js'
+import User from '../modules/user.js'
 import { generateToken } from '../utils/token.js'
 import crypto from 'crypto'
 import sendEmail from './sendEmail.js';
