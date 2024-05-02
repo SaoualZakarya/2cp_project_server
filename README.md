@@ -214,6 +214,12 @@ GET /api/user/get/credit-card   'require auth'
 DELETE /api/user/delete/credit-card/:id   'require auth'
 ``` 
 
+#### get user
+
+```http
+GET /api/user/get-single-user  'require auth'
+``` 
+
 
 ### Forgot password
 
