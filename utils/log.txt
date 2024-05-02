@@ -41,3 +41,5 @@
 [2024-05-02T17:26:30.777Z] ::1 - OPTIONS /api/auth/sign-up
 [2024-05-02T17:26:30.965Z] ::1 - OPTIONS /api/auth/sign-up
 [2024-05-02T17:26:48.456Z] ::1 - OPTIONS /api/auth/sign-up
+[2024-05-02T17:57:13.753Z] ::1 - POST /api/auth/sign-in
+[2024-05-02T17:58:01.292Z] ::1 - GET /api/user/get-single-user
