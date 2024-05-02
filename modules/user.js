@@ -7,13 +7,11 @@ var userSchema = new mongoose.Schema({
     firstName:{
         type:String,
         required:[true, 'FirstName is required'],
-        unique:[true,"firstName is unique"],
         match: [/^[a-zA-Z]{2,17}$/, "{VALUE} is not a valid firstName"]
     },
     lastName:{
         type:String,
         required:[true, 'lastName is required'],
-        unique:[true,"lastName is unique"],
         match: [/^[a-zA-Z]{2,17}$/, "{VALUE} is not a valid lastName"]
     },
     email:{
