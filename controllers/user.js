@@ -53,7 +53,7 @@ const sendVerificationEmail = async (req, res) => {
             tokenExpiration
         });
 
-        const verificationLink = `http://${process.env.DOMAIN_NAME}/verify?token=${verificationToken}`;
+        const verificationLink = `http://${process.env.DOMAIN_NAME}/api/user/verify/${verificationToken}`;
 
         // Send verification email
         await sendEmail({
