@@ -85,3 +85,11 @@
 [2024-05-02T23:28:36.566Z] ::1 - POST /api/auth/sign-up/google
 [2024-05-02T23:29:29.283Z] ::1 - OPTIONS /api/auth/sign-up/google
 [2024-05-02T23:29:29.287Z] ::1 - POST /api/auth/sign-up/google
+[2024-05-02T23:54:22.179Z] ::1 - OPTIONS /api/auth/sign-in/google
+[2024-05-02T23:54:22.190Z] ::1 - POST /api/auth/sign-in/google
+[2024-05-02T23:56:59.390Z] ::1 - OPTIONS /api/auth/sign-up/google
+[2024-05-02T23:56:59.393Z] ::1 - POST /api/auth/sign-up/google
+[2024-05-02T23:57:31.806Z] ::1 - OPTIONS /api/auth/sign-in/google
+[2024-05-02T23:57:31.809Z] ::1 - POST /api/auth/sign-in/google
+[2024-05-02T23:58:28.758Z] ::1 - OPTIONS /api/auth/sign-in/google
+[2024-05-02T23:58:28.762Z] ::1 - POST /api/auth/sign-in/google

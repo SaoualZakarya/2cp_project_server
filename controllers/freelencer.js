@@ -36,7 +36,7 @@ const updateFreelencer = async (req,res,next) => {
 const getFreelencer = async (req, res, next) => {
     const id = req.user._id
     try {
-        const freelencer = await User.findById(id)
+        const freelencer = await User.findById(id).select('portfolio_url description  skills certificate')
         res.json({success:true,data:freelencer})
     } catch (error) {
         next(error)

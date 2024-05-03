@@ -155,10 +155,13 @@ const createUserWithGoogle = async (req, res,next) =>{
         
         res.json({
             message:"User created successfully",
-            Success:true,
             _id: user._id,
             email: user.email,
-            userName: user.userName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            mobile:user.mobile,
+            verified:user.verified,
+            role:user.role
         });
 
     }catch(err){
@@ -172,7 +175,7 @@ const loginUserWithGoogle = async (req, res, next) => {
         const user = await User.findOne({ googleId });
 
         if (!user) {
-            return res.json({ "Message": "User not found", "Success": false });
+            return res.status(404).json({ message: "User not found", success: false });
         }
         
         const token = await generateToken(user._id);    
@@ -185,9 +188,14 @@ const loginUserWithGoogle = async (req, res, next) => {
         });
         
         res.json({
+            message:"User login successfully",
             _id: user._id,
             email: user.email,
-            userName: user.userName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            mobile:user.mobile,
+            verified:user.verified,
+            role:user.role
         });
 
     } catch (err) {
