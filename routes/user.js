@@ -24,17 +24,4 @@ userRouter.get('/verify/:token',authMiddleware,isBlocked, user.verifyUser)
 // Add more user informations
 userRouter.post('/update-profile',authMiddleware,isBlocked,isVerified,user.updateProfile)
 
-// Create user payment card
-userRouter.post('/create-card',authMiddleware,isBlocked,isVerified,user.createCard)
-
-// update user payment card
-userRouter.put('/update/credit-card/:id',authMiddleware,isBlocked,isVerified,user.updateCard)
-
-// get user payment card
-userRouter.get('/get/credit-card',authMiddleware,isBlocked,isVerified,user.getCard)
-
-// delete user payment card
-userRouter.delete('/delete/credit-card/:id',authMiddleware,isBlocked,isVerified,user.deleteCard)
-
-
 export default userRouter ;

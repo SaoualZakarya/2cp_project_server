@@ -1,0 +1,8 @@
+version: '4.0'
+
+services:
+  # Mongodb service
+  mongo_db: 
+    container: db_container
+    
+     

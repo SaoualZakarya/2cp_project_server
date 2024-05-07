@@ -2,15 +2,12 @@ For the freelencer I still have to do
 
     add the payment  
 
-
 For the client I still have to do 
 
     add the payment on the project
 
-
 Notification system
-    the chat 
 
-Update the class diagramme for the last time 
+    the chat 
 
 
