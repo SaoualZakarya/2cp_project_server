@@ -98,27 +98,19 @@ const createCheckoutSession = async (req, res, next) => {
   const { _id: clientID } = '6621482abe275abc9c8932b7'
 
   //  req.params  
-  const {id:projectId} = '6627e10e4b756d919cd006ae'
+  const projectId = '663d759e05a7a46617f85d2c'
 
   // accepted freelencer id 
   const {id:freelencerId} = req.body
-
-  
  
   try {
 
     validateMongoDbId(clientID);
     validateMongoDbId(projectId);
     validateMongoDbId(freelencerId);
-
-    // Inputs Validation
-    if (!isValidObjectId(projectId)) {
-      res.status(400)
-      throw new Error('enter a valid data !')
-    }
    
     // Get the stripe id from the freeelencer
-    const freelencer = await User.findOneById(freelencerId) ;
+    const freelencer = await User.findById(freelencerId) ;
 
     const lessorStripeAccountId = freelencer.stripeAccountId ;
 
@@ -129,7 +121,7 @@ const createCheckoutSession = async (req, res, next) => {
    
     // Calculate total price
 
-    const project = await Project.findOneById(projectId) ;
+    const project = await Project.findById(projectId) ;
 
     const totalPrice = project?.amount ;
 
@@ -157,14 +149,14 @@ const createCheckoutSession = async (req, res, next) => {
         }
       ],
       success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      
+
       // يرجعو اذا فسدت  //  The project page
 
       cancel_url: `${domainUrl}/payment2`,
       metadata: {
         projectId,
         // freelencer  id
-        clientID: freelencerId,
+        freelencerId,
       },
       payment_intent_data: {
         // fees for our application
@@ -176,7 +168,7 @@ const createCheckoutSession = async (req, res, next) => {
     })
 
     // Send notification
-    await createNotification(`The payment on the project ${project?.title} has been created successfully `,clientID,'payment')
+    await createNotification(`The payment on the project ${project?.title} has been created successfully `,freelencerId,'payment')
 
     return res.status(200).json({sessionId: session.id})
    
@@ -186,9 +178,7 @@ const createCheckoutSession = async (req, res, next) => {
 }
 
 
-
-
-export const createReservationWebhook = async (req, res, next) => {
+const createReservationWebhook = async (req, res, next) => {
 
   const event = req.body
 
