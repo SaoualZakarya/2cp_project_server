@@ -703,6 +703,20 @@ GET /api/enquiry/all 'require auth, admin'
 GET /api/enquiry/:id 'require auth, admin'
 ```
 
+
+
+## Public
+
+#### Get user profile information
+
+    "id" represent the user id
+```http
+GET /api/public/:id 
+```
+
+
 ## Last
+
+
 
 </details>
