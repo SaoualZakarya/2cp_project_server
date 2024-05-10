@@ -1,126 +1,220 @@
 import stripe from 'stripe';
+import User from '../modules/user.js'
+import createNotification from '../utils/notifcation.js'
+import Project from '../modules/project.js'
+import validateMongoDbId from '../utils/validate_mongodb_id.js';
 
 const stripeInstance = stripe(process.env.STRIPE_PRIVATE_KEY);
 
-const endpointSecret = process.env.END_POINT_SECRET ;
+const domainUrl = 'http://localhost:5173' ;
 
-const createAccountStripe = async (req, res) => {
-    try {
-        // Extract user information from the request body
-        const { email,token } = req.body;
+const joinUs = async (req, res, next) => {
 
-        // Create a Stripe account for the user
-        const account = await stripeInstance.accounts.create({
-            type: 'custom',
-            country:'DZ',
-            email,
-            default_currency:'dzd',
-            capabilities: {
-              card_payments: {
-                requested: true,
-              },
-              transfers: {
-                requested: true,
-              },
-            },
-            business_type: 'company',
-            company:{
-              name:'WorkWave',
-              tax_id:'123456789',
-              address:{
-                city:'Algiers',
-                country:'DZ',
-                line1:'123 Business ST',
-                postal_code:'34000',
-                state:'State'
-              },
-            },
-            tos_acceptance: {
-              service_agreement:'recipient',
-              date: Math.floor(Date.now() / 1000),
-              ip: req.ip,
-            },
-            metadate:{
-              lessorID:sessionID.toString()
-            }
-        });
+  //  from req.user
+  const userId = '662146a6be275abc9c8932ae' ;
+  // from req.user
+  const fullName = 'freelencerName' ;
 
-        if (!account) {
-            return res.status(500).json({ error: 'Something went wrong with stripe' });
-        }
+  const {email, token} = req.body ;
 
-        const bankAccount = await stripeInstance.accounts.createExternalAccount({
-          external_account:token,
-        });
+  try {
 
-        if(!bankAccount) {
-          return res.status(500).json({ error: 'You can not accept payout' });
-        }
-
-        const userDetails = await UserExtraDetails.findOne
-
-
-        // Return the created account details
-        res.status(201).json({ account });
-    } catch (error) {
-        console.error('Error creating Stripe account:', error);
-        res.status(500).json({ error: 'Internal server error' });
+    if (!email || !token) {
+      res.status(400)
+      throw new Error('please fill in all requered fields')
     }
-};
 
-const webHookFunction =  (request, response) => {
-    const sig = request.headers['stripe-signature'];
-  
-    let event;
-  
-    try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    } catch (err) {
-      response.status(400).send(`Webhook Error: ${err.message}`);
-      return;
-    }
-  
-    // Handle the event
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntentSucceeded = event.data.object;
-        // Then define and call a function to handle the event payment_intent.succeeded
-        break;
-      // ... handle other event types
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-  
-    // Return a 200 response to acknowledge receipt of the event
-    response.send();
-} ;
-
-
-
-
-const calculateOrderAmount = (items) => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    return 1400;
-  };
-
-const createPaymentIntent = async (req, res) => {
-    const { items } = req.body;
-  
-    // Create a PaymentIntent with the order amount and currency
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
-      currency: "eur",
-      // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-      automatic_payment_methods: {
-        enabled: true,
+    const account = await stripeInstance.accounts.create({
+      type: 'custom',
+      country: 'DZ',
+      email,
+      default_currency: 'dzd',
+      capabilities: {
+        card_payments: {
+          requested: false,
+        },
+        transfers: {
+          requested: true,
+        },
       },
-    });
-  
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-} ;
+     
+      business_type: 'company',
+      company: {
+        name: fullName ,
+        tax_id: '123456789',
+        address: {
+          city: 'Algiers',
+          country: 'DZ',
+          line1: '123 Business St',
+          postal_code: '12345',
+          state: 'algiers',
+        },
+      },
+      tos_acceptance: {
+        service_agreement: 'recipient',
+        date: Math.floor(Date.now() / 1000),
+        ip: req.ip,
+      }
+    })
+   
+    if (!account) {
+      res.status(500)
+      throw new Error('something went wrong with Stripe account creation!')
+    }
 
-export {webHookFunction,createAccountStripe,createPaymentIntent} ;
+    const bankAccount = await stripeInstance.accounts.createExternalAccount(account.id, {
+      external_account: token,
+    });
+
+    if (!bankAccount) {
+      res.status(500)
+      throw new Error('you can not accept payouts, contact us to solve you problem')
+    }
+
+    const userDetails = await User.findOneAndUpdate(
+      { _id: userId  },
+      {
+        stripeAccountId: account.id,
+      },
+      {
+        new: true,
+      }
+    );
+
+    await createNotification('Your account on stripe has been create successfully',userId,'payment')
+
+    res.status(200).json({ message: 'Join us process successful' })
+
+  } catch (err) {
+    next(err)
+  }
+
+}
+
+// On the user side
+const createCheckoutSession = async (req, res, next) => {
+
+  // req.user
+  const { _id: clientID } = '6621482abe275abc9c8932b7'
+
+  //  req.params  
+  const {id:projectId} = '6627e10e4b756d919cd006ae'
+
+  // accepted freelencer id 
+  const {id:freelencerId} = req.body
+
+  
+ 
+  try {
+
+    validateMongoDbId(clientID);
+    validateMongoDbId(projectId);
+    validateMongoDbId(freelencerId);
+
+    // Inputs Validation
+    if (!isValidObjectId(projectId)) {
+      res.status(400)
+      throw new Error('enter a valid data !')
+    }
+   
+    // Get the stripe id from the freeelencer
+    const freelencer = await User.findOneById(freelencerId) ;
+
+    const lessorStripeAccountId = freelencer.stripeAccountId ;
+
+    if (!freelencer || !freelencer?.stripeAccountId) {
+      res.status(400)
+      throw new Error('Freelencer not found !')
+    }
+   
+    // Calculate total price
+
+    const project = await Project.findOneById(projectId) ;
+
+    const totalPrice = project?.amount ;
+
+    if (!project || !project?.amount) {
+      res.status(400)
+      throw new Error('There is not project !')
+    }
+
+    // Create payment session
+    const session = await stripeInstance.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            unit_amount: totalPrice,
+            currency: "dzd",
+            // Details about payment page
+            product_data: {
+              name: project.title,
+              description: project.description
+            }
+          }
+        }
+      ],
+      success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      
+      // يرجعو اذا فسدت  //  The project page
+
+      cancel_url: `${domainUrl}/payment2`,
+      metadata: {
+        projectId,
+        // freelencer  id
+        clientID: freelencerId,
+      },
+      payment_intent_data: {
+        // fees for our application
+        application_fee_amount: Math.round( totalPrice * 0.2),
+        transfer_data: {
+          destination: lessorStripeAccountId,
+        },
+      },
+    })
+
+    // Send notification
+    await createNotification(`The payment on the project ${project?.title} has been created successfully `,clientID,'payment')
+
+    return res.status(200).json({sessionId: session.id})
+   
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+
+
+export const createReservationWebhook = async (req, res, next) => {
+
+  const event = req.body
+
+  console.log(event)
+ 
+  if (event.type === 'checkout.session.completed') {
+    const {clientID, projectId} = event.data.object.metadata
+
+    const project = await Project.findByIdAndUpdate(projectId,{
+      payed:true 
+    },{
+      new:true
+    })
+
+    await createNotification(`You have been payed successfully on the project ${project?.title}` , project.acceptedFreelencer , 'payment'  )
+ 
+    if (!project) {
+      res.status(500)
+      throw new Error('error happend, contact us to refund your amount')
+    }
+ 
+    return res.status(201).json({ message: 'Payment successfully created.' })
+  }
+
+}
+
+
+
+export default  {joinUs,createCheckoutSession,createReservationWebhook} ;

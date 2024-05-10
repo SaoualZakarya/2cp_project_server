@@ -15,9 +15,9 @@ import createNotification from '../utils/notifcation.js'
 
 const createProject = async (req,res,next) =>{
     try {
-        const {title,amount,description} = req.body
+        const {title,amount,skills,description} = req.body
         const project = await Project.create({
-            title,amount,description,user: req.user._id
+            title,amount,skills,description,user: req.user._id
         })
         res.json({success:true,data:project,message:"Project created successfully"})
     } catch (error) {

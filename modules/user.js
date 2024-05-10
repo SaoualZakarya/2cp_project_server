@@ -91,7 +91,11 @@ var userSchema = new mongoose.Schema({
     // For password update
     passwordChangedAt: { type: Date, default: Date.now() - (24 * 60 * 60 * 1000) },
     passwordResetToken: { type: String, default: undefined },
-    passwordResetExpires: { type: Date, default: undefined }
+    passwordResetExpires: { type: Date, default: undefined },
+
+    stripeAccountId :{
+        type:String,
+    }
 
 },{
     timestamps:true

@@ -9,6 +9,9 @@ var projectSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    skills:[{
+        type:String,
+    }],
     amount:{
         type:Number,
         required:true
@@ -30,11 +33,15 @@ var projectSchema = new mongoose.Schema({
             },
             status:{
                 type:String,
-                default:'Pending',
+                default:'pending',
                 enum:['pending','refused']
             }
         }
     ],
+    payed:{
+        type:Boolean,
+        default:false
+    },
     reservedCount:{
         type:Number,
         default:0
@@ -42,7 +49,7 @@ var projectSchema = new mongoose.Schema({
     acceptedFreelencer :{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
-    },
+    }
 },{
     timestamps:true
 });

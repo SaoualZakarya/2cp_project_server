@@ -135,7 +135,7 @@ const getProjectsExists = async (req, res, next) => {
         .populate('user', 'firstName lastName')
         .populate('acceptedFreelencer', 'firstName lastName')
         .select('-reserved').exec();
-        console.log(projects)
+
         res.json({ success: true, projects });
     } catch (error) {
         next(error);
