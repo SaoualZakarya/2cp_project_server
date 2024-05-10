@@ -9,6 +9,8 @@ router.post('/create-stripe-account',stripe.joinUs)
 
 router.post('/create-stripe-checkout-session/:id',stripe.createCheckoutSession)
 
+ //  stripe listen --forward-to localhost:4000/webhook
+
 router.post('/webhook',stripe.createReservationWebhook)
 
 
