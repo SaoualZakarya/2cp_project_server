@@ -21,6 +21,7 @@ import chatRouter from './routes/chat.js'
 import enquiryRouter from './routes/enquiry.js'
 import notificationRouter from './routes/notifcation.js'
 import payment from './routes/payment.js'
+import publicRouter from './routes/public.js'
 
 // init
 dotenv.config()
@@ -63,6 +64,8 @@ app.use('/api/enquiry',enquiryRouter)
 app.use('/api/notification',notificationRouter)
 
 app.use('/api/payment',payment)
+
+app.use('/api/public',publicRouter)
 
 // error middlewares
 app.use(errorHandler)

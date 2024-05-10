@@ -26,7 +26,6 @@ router.get('/get/projects/exists',authMiddleware,isBlocked,isVerified,isFreelenc
 //get single project
 router.get('/get/project/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getSingleProject)
 
-
 // switch role into user 
 router.put('/client',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
 
