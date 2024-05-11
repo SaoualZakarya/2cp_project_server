@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 // middlewares
-app.use(cors({credentials: true, origin: '*'}))
+app.use(cors({credentials: true, origin: 'http://localhost:5173'}))
 app.use(express.json({limit: '100mb'}))
 app.use(express.urlencoded({limit: '100mb', extended: false}))
 app.use(cookieParser())
@@ -75,26 +75,57 @@ app.use(errorHandler)
 const server = http.createServer(app);
 
 // Initialize Socket.IO
-const io = new Server(server);
+const io = new Server(server, {
+    pingTimeout: 50000,
+    cors: {
+      origin: 'http://localhost:5173',
+    }
+  });
+
+let users = [] ;
+
+const addUser = (userId,socketId)=>{
+    !users.some(user=>user.userId=== userId) && users.push({userId,socketId})
+}
+
+const removeUser = (socketId) => {
+    users = users.filter(user => user.socketId !== socketId)
+}
+
+const getUser = (userId) => {
+    return users.find(user => user.userId ===  userId)
+}
 
 // WebSocket event handlers
 io.on('connection', (socket) => {
+    
+    // When connect
     console.log('A user connected:', socket.id);
+    socket.on('addUser',(userId)=>{
+        addUser(userId,socket.id)
+        io.emit('getUsers',users)
+    })
 
-    // Example message event
-    socket.on('chat message', (msg) => {
-        console.log('Message received:', msg);
-        // Broadcast the message to all connected clients
-        io.emit('chat message', msg);
+    // Send and get message
+    socket.on('sendMessage', ({senderId,recieverId,text,photo}) => {
+        const user = getUser(recieverId) ;
+        io.to(user?.socketId).emit("getMessage",{
+            sender : senderId,
+            content:text ,
+            photo
+        })
     });
 
-    // Handle disconnect
+
+    // When disconnect
     socket.on('disconnect', () => {
         console.log('User disconnected: ', socket.id);
+        removeUser(socket.id)
+        io.emit('getUsers',users)
     });
 });
 
 // Start server
-app.listen(PORT,HOST, () => {
+server.listen(PORT,HOST, () => {
     console.log(`the server is running on  http://${HOST}:${PORT}`)
 })

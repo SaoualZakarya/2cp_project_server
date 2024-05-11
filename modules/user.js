@@ -40,7 +40,8 @@ var userSchema = new mongoose.Schema({
         required:true,
     },
     photo:{
-        type:String
+        type:String,
+        default:'https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=144&h=144'
     },
     portfolio_url:{
         type:String,

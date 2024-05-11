@@ -5,14 +5,14 @@ import validateMongoDbId from '../utils/validate_mongodb_id.js';
 
 // Get all messages
 const getAllMessages = async (req,res,next) =>{
-    const {conversation} = req.body 
+    const {id:conversation} = req.params
     if(!validateMongoDbId(conversation)){
         return res.status(400).json({ error: "Conversation id is not valid" });
     }
     try{
         const messages = await Message.find({conversation}).populate({
             path: 'sender',
-            select: 'firstName lastName'
+            select: 'firstName lastName photo'
         });
         res.json(messages);
     }catch (err){
@@ -30,7 +30,7 @@ const createMessage = async (req,res,next) =>{
         return res.status(400).json({ error: "Conversation id is not valid" });
     }
 
-    const userId = req.user._id
+    const userId = req.user._id ;
     try{
         const message = await Message.create({
             content,
@@ -68,13 +68,32 @@ const createConversation = async (req,res,next) =>{
 const getAllConversations = async (req,res,next) =>{
     const id = req.user._id;
     try{
-        const messages = await Conversation.find({
+        const conversations = await Conversation.find({
             $or: [
                 { creator: id },
                 { participant: id }
             ]
-        });
-        res.json(messages);
+        }).populate({
+            path: 'creator participant',
+            select: 'firstName lastName role email photo' // Replace fieldName1 and fieldName2 with the fields you want to select
+        })
+        res.json(conversations);
+    }catch (err){
+        next(err)
+    }
+}
+
+
+// Get single conversation
+const getSingleConversations = async (req,res,next) =>{
+    const id = req.params.id;
+    try{
+        const conversation = await Conversation.findById(id)
+        .populate({
+            path: 'creator participant',
+            select: 'firstName lastName role email photo' // Replace fieldName1 and fieldName2 with the fields you want to select
+        })
+        res.json(conversation);
     }catch (err){
         next(err)
     }
@@ -103,4 +122,4 @@ const deleteConversation = async (req,res,next) =>{
 
 
 
-export default {deleteMessage,deleteConversation, getAllMessages,createConversation,createMessage,getAllConversations}
+export default {deleteMessage,getSingleConversations,deleteConversation, getAllMessages,createConversation,createMessage,getAllConversations}
