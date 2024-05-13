@@ -1,5 +1,4 @@
 import express from 'express'
-import {authMiddleware,isBlocked,isVerified} from '../middlewares/authMiddleware.js'
 import stripe from '../controllers/payment.js'
 
 const router = express.Router() ;

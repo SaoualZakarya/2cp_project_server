@@ -15,7 +15,7 @@ const getAllNotification = async (req,res,err)=>{
 
 // check notification
 
-const checkNotification = async (req,res,err)=>{
+const checkNotification = async (req,res,next)=>{
     const id = req.params.id
     const userId = req.user._id
     try{
