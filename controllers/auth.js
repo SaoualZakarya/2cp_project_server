@@ -67,7 +67,8 @@ const createUser = async(req,res,next) =>{
             lastName: user.lastName,
             mobile:user.mobile,
             verified:user.verified,
-            role:user.role
+            role:user.role,
+            photo:user.photo
         });
 
     }catch(err){
@@ -126,7 +127,8 @@ const loginUser = async (req, res, next) => {
             lastName: user.lastName,
             mobile:user.mobile,
             verified:user.verified,
-            role:user.role
+            role:user.role,
+            photo:user.photo
         });
 
     } catch (err) {
@@ -161,7 +163,8 @@ const createUserWithGoogle = async (req, res,next) =>{
             lastName: user.lastName,
             mobile:user.mobile,
             verified:user.verified,
-            role:user.role
+            role:user.role,
+            photo:user.photo
         });
 
     }catch(err){
@@ -195,7 +198,8 @@ const loginUserWithGoogle = async (req, res, next) => {
             lastName: user.lastName,
             mobile:user.mobile,
             verified:user.verified,
-            role:user.role
+            role:user.role,
+            photo:user.photo
         });
 
     } catch (err) {
@@ -215,12 +219,12 @@ const forgotPasswordToken = async(req,res,next)=>{
         await user.save()
         
         const resetURL = `Please follow this link to reset your password. <br> This link is valid 10 minutes from now <br> 
-        <a href='http://localhost:3000/api/user/reset-password/${token}'> Click here </a> <br> 
+        <a href='http://localhost:5173/api/user/reset-password/${token}'> Click here </a> <br> 
         Don't forget you have just one time to change the password by day `
         const data = {
             to : email,
-            text : 'Hey User',
-            from : '<ecommerceShop1900gmail.com>',
+            text : 'Salut',
+            from : '<Workwaveteam@gmail.com>',
             subject : ' Forgot password link ',
             htm : resetURL
         }

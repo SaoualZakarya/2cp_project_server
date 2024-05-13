@@ -224,7 +224,12 @@ const getServices = async (req, res, next) => {
     }
 
     try {
-        let query = Service.find();
+
+        let query = Service.find().populate({
+            path: 'enroledUsers.user',
+            model: 'User',
+            select: 'firstName lastName photo _id email'
+        });
 
         // Apply filters only if they are defined
         if (Object.keys(filters).length > 0) {

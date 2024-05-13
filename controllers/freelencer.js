@@ -132,7 +132,7 @@ const getProjectsExists = async (req, res, next) => {
         }
     
         const projects = await query
-        .populate('user', 'firstName lastName')
+        .populate('user', 'firstName lastName photo')
         .populate('acceptedFreelencer', 'firstName lastName')
         .select('-reserved').exec();
 
