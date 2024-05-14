@@ -45,11 +45,11 @@ const getFreelencer = async (req, res, next) => {
 
 const applyProject = async (req, res, next) => {
     let projectId = req.params.id
-    let userId=req.user._id
+    let userId = req.user._id
     try {
         const project = await Project.findById(projectId)
         if(project.status === "complete" || project.status === 'fullfield' || project.status === "canceled"){
-            res.status(404).json({success:false,message:"Project or fullfield complete or canceled"})
+            res.status(404).json({success:false,message:"Project are fullfield , complete or canceled"})
         }
         await Project.findByIdAndUpdate(projectId, {
             $push: {

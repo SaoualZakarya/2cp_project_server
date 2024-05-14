@@ -3,15 +3,6 @@ import User from '../modules/user.js'
 import Service from '../modules/freelencerService.js'
 import createNotification from '../utils/notifcation.js'
 
-// const getClient = async (req,res,next) => {
-//     const {id} = req.params
-//     try {
-//         const client = await User.findById(id)   
-//         res.json(client)     
-//     } catch (error) {
-//         next(error)
-//     }
-// }
 
 const createProject = async (req,res,next) =>{
     try {
@@ -245,8 +236,21 @@ const getServices = async (req, res, next) => {
 
 const applyForService = async (req, res, next) => {
     let serviceId = req.params.id
-    let userId=req.user._id
+    let userId = req.user._id
     try {
+
+        const service = await Service.findById(serviceId) ;
+
+        if (!service) {
+            return res.status(400).json({success:false,message:"Service not found!"});
+        }
+
+        const isApplied = service.enroledUsers.some(ele => ele.user.equals(userId));
+
+        if (isApplied) {
+            return res.status(400).json({ success: false, message: "You have already applied for this service" });
+        }
+
         await Service.findByIdAndUpdate(serviceId, {
             $push: {
                 enroledUsers: {
@@ -256,7 +260,7 @@ const applyForService = async (req, res, next) => {
             $inc: { numEnroled: 1 }
         }, {new: true})
 
-        res.json({success:true,message:"Your applied was done successfully"})
+        res.status(400).json({success:true,message:"Your applied was done successfully"})
     }catch(err){
         next(err)
     }
