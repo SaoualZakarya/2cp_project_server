@@ -62,3 +62,5 @@
 [2024-05-14T22:47:46.437Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
 [2024-05-14T22:47:55.155Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
 [2024-05-14T22:47:58.605Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
+[2024-05-15T22:35:49.267Z] ::1 - POST /api/auth/sign-in
+[2024-05-15T22:36:38.993Z] ::1 - POST /api/chat/conversation/create

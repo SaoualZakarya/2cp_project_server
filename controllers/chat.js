@@ -44,23 +44,40 @@ const createMessage = async (req,res,next) =>{
 }
 
 // Create conversation
-const createConversation = async (req,res,next) =>{
+const createConversation = async (req, res, next) => {
+    const { participant } = req.body;
+    const userId = req.user._id;
 
-    const {participant} = req.body 
+    validateMongoDbId(userId)
 
-    if(!validateMongoDbId(participant)){
-        return res.status(400).json({ error: "Participant id is not valid" });
-    }
+    try {
 
-    const userId = req.user._id
-    try{
+        const existingConversation = await Conversation.findOne({
+            creator: userId,
+            participant: participant
+        });
+
+        if (existingConversation) {
+            return res.status(400).json({ success:false,message: "Conversation already exists" });
+        }
+
+        const reverseExistingConversation = await Conversation.findOne({
+            creator: participant,
+            participant: userId
+        });
+
+        if (reverseExistingConversation) {
+            return res.status(400).json({success:false,message:"Conversation already exists" });
+        }
+
         const conversation = await Conversation.create({
-            creator:userId,
+            creator: userId,
             participant
         });
-        res.json({message:"Conversation has been created successfully",success:true});
-    }catch (err){
-        next(err)
+
+        res.json({ message: "Conversation has been created successfully", success: true });
+    } catch (err) {
+        next(err);
     }
 }
 
