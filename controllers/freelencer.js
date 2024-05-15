@@ -48,9 +48,21 @@ const applyProject = async (req, res, next) => {
     let userId = req.user._id
     try {
         const project = await Project.findById(projectId)
+
+        if (!project) {
+            return res.status(400).json({success:false,message:"Project not found!"});
+        }
+
+        const isApplied = project.reserved.some(ele => ele.user.equals(userId));
+
+        if (isApplied) {
+            return res.status(400).json({ success: false, message: "You have already applied on this project" });
+        }
+
         if(project.status === "complete" || project.status === 'fullfield' || project.status === "canceled"){
             res.status(404).json({success:false,message:"Project are fullfield , complete or canceled"})
         }
+
         await Project.findByIdAndUpdate(projectId, {
             $push: {
                 reserved: {

@@ -56,3 +56,9 @@
 [2024-05-14T22:18:05.412Z] ::1 - PUT /api/client/service/apply/6627ec9ea0986928d13d671b
 [2024-05-14T22:18:09.907Z] ::1 - PUT /api/client/service/apply/6627ec9ea0986928d13d671b
 [2024-05-14T22:19:22.448Z] ::1 - POST /api/auth/sign-in
+[2024-05-14T22:46:17.049Z] ::1 - POST /api/auth/
+[2024-05-14T22:46:30.549Z] ::1 - POST /api/auth/sign-in
+[2024-05-14T22:47:22.409Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
+[2024-05-14T22:47:46.437Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
+[2024-05-14T22:47:55.155Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
+[2024-05-14T22:47:58.605Z] ::1 - PUT /api/freelencer/apply/663d759e05a7a46617f85d2c
