@@ -324,6 +324,8 @@ const refuseUserFromService =  async (req,res,next) => {
         if (!updatedService) {
             return res.status(404).json({ message: "Service or user not found", success: false });
         }
+
+        const msg = ` Your application for the ${updatedService.service} has been refused`;
             
         createNotification(msg,userId,'service') ;
 

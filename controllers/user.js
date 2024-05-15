@@ -26,9 +26,10 @@ const updateProfile = async (req,res,next) => {
 // get user 
  
 const getUser = async (req,res,next) =>{
-    const userId = req.user._id
+    const userId =  req.params.id ;
+
     try{
-        const user = await User.findById(userId).select('firstName lastName email mobile role verified')
+        const user = await User.findById(userId).select('-password -googleId -verificationToken -tokenExpiration -passwordChangedAt -passwordResetToken -passwordResetExpires -stripeAccountId ')
         if(!user){
             return res.status(404).json({success:false,message:"User not found"})
         }

@@ -5,6 +5,9 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    icon:{
+        type:String
+    },
     checked: {
         type: Boolean,
         required: true,
@@ -19,6 +22,9 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         enum:['auth','project','general','service','enquiry','chat','admin','payment'],
         default:'general'
+    },
+    link:{
+        type:String,   
     }
 }, {
     timestamps: true 
