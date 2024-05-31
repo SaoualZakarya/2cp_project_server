@@ -49,6 +49,18 @@ var projectSchema = new mongoose.Schema({
     acceptedFreelencer :{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
+    },
+    projectSubmission:{
+        link:{
+            type:String
+        },
+        desc:{
+            type:String
+        },
+        done:{
+            type:Boolean,
+            default:false
+        }
     }
 },{
     timestamps:true

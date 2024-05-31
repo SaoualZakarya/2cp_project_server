@@ -335,6 +335,35 @@ const refuseUserFromService =  async (req,res,next) => {
     }
 }
 
+const submitProject = async ( req , res , next ) => {
+    const { link , desc } = req.body
+    const projectId = req.params.id
+    const userId = req.user._id
+
+    try {
+        const project = await Project.findOne({
+            acceptedFreelencer:userId,
+            _id:projectId
+        })
+
+        if (!project){
+            return res.status(404).json({success:false,message:"There is no project"})
+        }
+
+        project.projectSubmission = {
+            link,
+            desc,
+            done:true
+        }
+        await project.save()
+        res.json({success:true,message:"Project submitted successfully"})
+
+    } catch (err){
+        next(err);
+    }
+    
+}
+
 export default {
     createFreelencer,updateFreelencer,getFreelencer
     ,applyProject,switchIntoUser,createService,
@@ -342,5 +371,6 @@ export default {
     getService,getAllFreelencerServices,
     getProjectsAccepted,getProjectsCanceled,
     getProjectsExists,getSingleProject,
-    accepteUserOnService,refuseUserFromService
+    accepteUserOnService,refuseUserFromService,
+    submitProject
 }

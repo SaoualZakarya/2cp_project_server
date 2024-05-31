@@ -25,6 +25,8 @@ router.get('/get/projects/canceled',authMiddleware,isBlocked,isVerified,isFreele
 router.get('/get/projects/exists',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getProjectsExists)
 //get single project
 router.get('/get/project/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.getSingleProject)
+// submit project
+router.put('/submit/project/:id',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.submitProject)
 
 // switch role into user 
 router.put('/client',authMiddleware,isBlocked,isVerified,isFreelencer,freelencer.switchIntoUser)
