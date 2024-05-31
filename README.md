@@ -431,6 +431,26 @@ GET /api/freelencer/get/service/:id  'require auth'
 GET /api/freelencer/get/services/all  'require auth'
 ```
 
+#### submit project
+
+```http
+PUT /api/freelencer/submit/project/:id 'require auth'
+```
+
+    id : represent the project id 
+
+| Parameter      | Type                |
+| :------------- | :------------------ |
+| `link `        | `string`            |
+| `desc`         | `string`            |
+
+example :
+
+    {
+        "link":"google drive link",
+        "desc":"Description about the content of the drive"
+    }
+
 
 ## Chat
 
