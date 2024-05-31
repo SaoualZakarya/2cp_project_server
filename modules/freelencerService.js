@@ -27,6 +27,18 @@ const serviceSchema = new mongoose.Schema({
                 type:String,
                 default:'pending',
                 enum:['canceled','accepted','pending','done']
+            },
+            serviceSubmission:{
+                link:{
+                    type:String
+                },
+                desc:{
+                    type:String
+                },
+                done:{
+                    type:Boolean,
+                    default:false
+                }
             }
         }
     ],

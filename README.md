@@ -6,7 +6,8 @@ as PROJET PLURIDISCIPLINAIRE purposes  using expressjs and mongodb for the backe
 ## Schema
 You will find in here the schema that I use to build this project
 ```bash
-   $ the link will be here soon
+   $ https://lucid.app/lucidchart/fa14e784-e814-4b5a-a5aa-fffe57508471/edit?viewport_loc=-664%2C-288%2C2520%2C1100%2C0_0&invitationId=inv_99dc441e-c3d0-4cbb-9efa-94d6178efb0e
+   
 ```
 
 ## How to use this project
