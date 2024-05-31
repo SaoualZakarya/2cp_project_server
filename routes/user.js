@@ -12,7 +12,6 @@ userRouter.post('/profile-picture',authMiddleware,isBlocked,isVerified,uploadPho
 // get user
 userRouter.get('/get-single-user/:id',authMiddleware,isBlocked,isVerified,user.getUser)
 
-
 // delete picture 
 userRouter.delete('/delete-image/:id',authMiddleware,isBlocked,isVerified,deleteImage)
 

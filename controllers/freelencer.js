@@ -249,7 +249,7 @@ const deleteService = async (req,res,next) => {
 const getAllFreelencerServices =  async (req,res,next) => {
     const id = req.user._id
     try {
-        const freelancerServices = await Service.find({freelancer:id}).select('-freelancer -enroledUsers')
+        const freelancerServices = await Service.find({freelancer:id}).select('-freelancer enroledUsers')
         res.json({success:true,services: freelancerServices})
     } catch (error) {
         next(error)
@@ -364,6 +364,42 @@ const submitProject = async ( req , res , next ) => {
     
 }
 
+const submitService = async (req, res, next) => {
+    const { link, desc,enrolledUserId } = req.body;
+    const serviceId = req.params.id;
+    const freelancerId = req.user._id;
+
+    try {
+
+        const service = await Service.findOne({
+            freelancer: freelancerId,
+            _id: serviceId
+        });
+
+        if (!service) {
+            return res.status(404).json({ success: false, message: "Service not found" });
+        }
+
+        const enroledUser = service.enroledUsers.find(user => user.user.toString() === enrolledUserId.toString());
+
+        if (!enroledUser) {
+            return res.status(404).json({ success: false, message: "Enrolled user not found in this service" });
+        }
+
+        // Update the serviceSubmission fields
+        enroledUser.serviceSubmission.link = link;
+        enroledUser.serviceSubmission.desc = desc;
+        enroledUser.serviceSubmission.done = true;
+
+        // Save the updated service document
+        await service.save();
+
+        res.json({ success: true, message: "Service submitted successfully" });
+    } catch (err) {
+        next(err);
+    }
+};
+               
 export default {
     createFreelencer,updateFreelencer,getFreelencer
     ,applyProject,switchIntoUser,createService,
@@ -372,5 +408,5 @@ export default {
     getProjectsAccepted,getProjectsCanceled,
     getProjectsExists,getSingleProject,
     accepteUserOnService,refuseUserFromService,
-    submitProject
+    submitProject,submitService
 }

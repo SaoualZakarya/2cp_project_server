@@ -321,7 +321,6 @@ const getSingleService = async (req,res,next) =>{
     }
 }
 
-
 export default {
     createProject,getUserProjects,getSingleUserProject,
     updateProject,deleteSingleUserProject,

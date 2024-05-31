@@ -452,6 +452,28 @@ example :
         "desc":"Description about the content of the drive"
     }
 
+#### submit service 
+
+```http
+PUT /api/freelencer/submit/service/:id 'require auth'
+```
+
+    id : represent the service id 
+
+| Parameter        | Type                |
+| :--------------- | :------------------ |
+| `link `          | `string`            |
+| `desc`           | `string`            |
+| `enrolledUserId` | `string`            |
+
+example :
+
+    {
+        "link":"google drive link",
+        "desc":"Description about the content of the drive",
+        "enrolledUserId":"6621482abe275abc9c8932b7"
+    }
+
 
 ## Chat
 
