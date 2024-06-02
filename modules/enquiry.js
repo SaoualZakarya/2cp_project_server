@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Mongoose } from 'mongoose'
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -13,6 +13,19 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:"In progress",
         enum:["In progress","Contacted"]
+    },
+    projectId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Project"
+    },
+    serviceId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Service"
+    },
+    sort:{
+        type:String,
+        enum:["general","project","service"],
+        default:'general'
     }
 },{
     timestamps:true
