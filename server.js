@@ -80,7 +80,9 @@ const io = new Server(server, {
     cors: {
       origin: 'http://localhost:5173',
     }
-  });
+});
+
+ 
 
 let users = [] ;
 
@@ -116,7 +118,6 @@ io.on('connection', (socket) => {
         })
     });
 
-
     // When disconnect
     socket.on('disconnect', () => {
         console.log('User disconnected: ', socket.id);
@@ -124,6 +125,8 @@ io.on('connection', (socket) => {
         io.emit('getUsers',users)
     });
 });
+
+export { io ,getUser };
 
 // Start server
 server.listen(PORT,HOST, () => {
