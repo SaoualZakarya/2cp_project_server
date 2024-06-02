@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Expose the port that the application will run on.
-EXPOSE 5000
+EXPOSE 4000
 
 # Define the environment variables.
 ENV NODE_ENV=production

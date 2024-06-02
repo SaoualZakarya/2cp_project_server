@@ -44,8 +44,8 @@ const isClient = async (req, res, next) => {
 };
 
 const isBlocked = async (req, res, next) => {
-    const user = req.user;
-    if (user.blocked) {
+    const user = req.user ;
+    if (user.blocked == true) {
         res.status(403).json({ success: false, message: "Your account has been blocked" });
     }
     next();
