@@ -1,8 +1,27 @@
-version: '4.0'
+version: '3.8'
 
 services:
-  # Mongodb service
-  mongo_db: 
-    container: db_container
-    
-     
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/2cp_project
+      - JWT_SECRET=
+      - OTHER_ENV_VARIABLE=your_value
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
