@@ -25,7 +25,7 @@ const updateProfile = async (req,res,next) => {
 
 // get user 
  
-const getUser = async (req,res,next) =>{
+const getUserId = async (req,res,next) =>{
     const userId =  req.params.id ;
 
     try{
@@ -38,6 +38,20 @@ const getUser = async (req,res,next) =>{
         next(err)
     }
 }
+ 
+const getUser = async (req,res,next) =>{
+    const userId = req.user._id
+    try{
+        const user = await User.findById(userId).select('firstName lastName email mobile role verified')
+        if(!user){
+            return res.status(404).json({success:false,message:"User not found"})
+        }
+        res.json({success:true,data:user})
+    } catch(e){
+        next(err)
+    }
+}
+
 
 
 const sendVerificationEmail = async (req, res) => {

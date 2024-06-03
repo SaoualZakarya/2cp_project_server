@@ -3,7 +3,7 @@ import client from '../controllers/client.js'
 import {authMiddleware,isBlocked,isClient,isVerified} from '../middlewares/authMiddleware.js'
 const router = express.Router()
 
-// // get client 
+// get client 
 // router.get('/data/:id', authMiddleware,isBlocked,isVerified,client.getClient)
 
 // create project
