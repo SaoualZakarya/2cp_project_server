@@ -249,7 +249,7 @@ const deleteService = async (req,res,next) => {
 const getAllFreelencerServices =  async (req,res,next) => {
     const id = req.user._id
     try {
-        const freelancerServices = await Service.find({freelancer:id}).select('-freelancer enroledUsers')
+        const freelancerServices = await Service.find({freelancer:id}) ;
         res.json({success:true,services: freelancerServices})
     } catch (error) {
         next(error)
